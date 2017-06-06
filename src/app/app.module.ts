@@ -2,16 +2,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {WebSpeechComponent} from "./web-speech/web-speech.component";
-import {WebSpeechApiService} from "./services/web-speech-api.service";
+import {WebSpeechApiService} from "./web-speech/services/web-speech-api.service";
+import {WebSpeechModule} from "./web-speech/web-speech.module";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    WebSpeechComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    WebSpeechModule
   ],
   providers: [
     WebSpeechApiService

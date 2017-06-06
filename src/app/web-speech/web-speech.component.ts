@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {WebSpeechApiService} from "../services/web-speech-api.service";
+import {WebSpeechApiService} from "./services/web-speech-api.service";
 // import { WebSpeechService } from "./web-speech.service";
 // import { WebSpeech } from "./WebSpeech";
 // import {ActivatedRoute} from "@angular/router";

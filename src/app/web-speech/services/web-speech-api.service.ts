@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {IWindow} from "./IWindow.interface";
+import {IWindow} from "../IWindow.interface";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
