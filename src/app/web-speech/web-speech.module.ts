@@ -6,6 +6,7 @@ import {RouterModule} from "@angular/router";
 
 import { WebSpeechComponent } from './web-speech.component';
 import {WebSpeechApiService} from "./services/web-speech-api.service";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {WebSpeechApiService} from "./services/web-speech-api.service";
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot([]),
     WebSpeechRoutingModule
   ],

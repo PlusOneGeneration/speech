@@ -1,8 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
-      <button (click)="click()">Start</button>
-      <button (click)="stop()">Stop</button>
+      <h3>Recording: </h3>
+      <button class="btn btn-default" (click)="start()">Start</button>
+      <button class="btn btn-default" (click)="stop()">Stop</button>
+    </div>
+    <div class="col-md-4" *ngIf="isRecording">
+      <span>Recording started...</span>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4" *ngIf="text">
+      <h4>You text: </h4>
+      <div>{{text}}</div>
     </div>
   </div>
 </div>

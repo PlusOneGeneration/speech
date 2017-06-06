@@ -1,19 +1,18 @@
-import {Injectable} from "@angular/core";
+import {Injectable, NgZone} from "@angular/core";
 import {IWindow} from "../IWindow.interface";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class WebSpeechApiService {
   speechRecognition: any;
-  speechRecognitionList: any;
 
-
-  constructor() {
+  constructor(private zone: NgZone) {
   }
 
   record(): Observable<any> {
     return Observable.create((observer) => {
       const {webkitSpeechRecognition} : IWindow = <IWindow>window;
+
       this.speechRecognition = new webkitSpeechRecognition();
       this.speechRecognition.lang = 'ru-ru';
       // this.recognition.continuous = true;
@@ -23,7 +22,8 @@ export class WebSpeechApiService {
       this.speechRecognition.onresult = (event) => {
         var last = event.results.length - 1;
         var resultText = event.results[last][0].transcript;
-        observer.next(resultText);
+
+        this.zone.run(() => observer.next(resultText) );
       }
 
       this.speechRecognition.onspeechend = function (event) {
@@ -56,5 +56,11 @@ export class WebSpeechApiService {
       this.speechRecognition.start();
 
     });
+  }
+
+  stopRecord(): void {
+    if(this.speechRecognition){
+      this.speechRecognition.stop();
+    }
   }
 }

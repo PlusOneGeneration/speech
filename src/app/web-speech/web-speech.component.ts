@@ -1,19 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-
 import {WebSpeechApiService} from "./services/web-speech-api.service";
-// import { WebSpeechService } from "./web-speech.service";
-// import { WebSpeech } from "./WebSpeech";
-// import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'web-speech',
   templateUrl: './web-speech.component.html'
 })
-
-export class WebSpeechComponent implements OnInit{
-  title = 'WebSpeech works!';
-  recognition: any;
-  speechRecognitionList: any;
+export class WebSpeechComponent implements OnInit {
+  text: string = '';
+  isRecording: boolean = false;
 
   constructor(private webSpeechApiService: WebSpeechApiService) {
   }
@@ -24,22 +18,22 @@ export class WebSpeechComponent implements OnInit{
 
   }
 
-  click() {
-      // this.recognition.start();
-    // console.log('this.webSpeechApiService.record()', this.webSpeechApiService.record());
-    this.webSpeechApiService.record()
-          .subscribe((result) => {
-        console.log('record result =>>>', result);
-    });
+  start() {
+    this.isRecording = true;
 
-      console.log('Ready to receive a color command.');
+    this.webSpeechApiService
+      .record()
+      .subscribe(
+        (resultText) => {
+          this.text = resultText
+          this.isRecording = false;
+        },
+        (error) => console.error(error)
+      );
   }
 
   stop() {
-    console.log('stop');
-    console.log('rec', this.recognition);
-    this.recognition.stop();
-
+    this.webSpeechApiService.stopRecord();
   }
 
 }
