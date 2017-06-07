@@ -1,21 +1,19 @@
 import { Routes, RouterModule} from "@angular/router";
 import { NgModule} from "@angular/core";
 import { WebSpeechComponent} from "./web-speech.component";
+import {WebRecordComponent} from "./web-record/web-record.component";
 
 export const webSpeechRoutes: Routes = [
   {
     path: 'web-speech',
-    component: WebSpeechComponent,
+    component: WebRecordComponent,
     data: { title: 'WebSpeech' },
     canActivate: [],
     children: [
-      // {
-      //   path: ':webSpeechId',
-      //   component: WebSpeechComponent,
-      //   resolve: {
-      //     webSpeech: WebSpeechResolver
-      //   }
-      // }
+      {
+        path: 'record',
+        component: WebRecordComponent,
+      }
     ]
   }
   // ,

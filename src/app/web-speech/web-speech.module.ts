@@ -7,10 +7,13 @@ import {RouterModule} from "@angular/router";
 import { WebSpeechComponent } from './web-speech.component';
 import {WebSpeechApiService} from "./services/web-speech-api.service";
 import {FormsModule} from "@angular/forms";
+import {MediaRecorderService} from "./services/media-recorder.service";
+import {WebRecordComponent} from "./web-record/web-record.component";
 
 @NgModule({
   declarations: [
-    WebSpeechComponent
+    WebSpeechComponent,
+    WebRecordComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +21,10 @@ import {FormsModule} from "@angular/forms";
     RouterModule.forRoot([]),
     WebSpeechRoutingModule
   ],
-  providers: [WebSpeechApiService],
+  providers: [
+    WebSpeechApiService,
+    MediaRecorderService
+  ],
   exports: [WebSpeechComponent],
   // bootstrap: [WebSpeechComponent]
 })
