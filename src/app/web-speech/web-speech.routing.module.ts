@@ -6,7 +6,7 @@ import {WebRecordComponent} from "./web-record/web-record.component";
 export const webSpeechRoutes: Routes = [
   {
     path: 'web-speech',
-    component: WebRecordComponent,
+    component: WebSpeechComponent,
     data: { title: 'WebSpeech' },
     canActivate: [],
     children: [

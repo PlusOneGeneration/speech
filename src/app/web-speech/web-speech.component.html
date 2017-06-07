@@ -11,9 +11,13 @@
   </div>
   <hr>
   <div class="row">
-    <div class="col-md-offset-4 col-md-4" *ngIf="text">
-      <h4>You text: </h4>
-      <div>{{text}}</div>
+    <div class="col-md-offset-4 col-md-4" >
+      <h4 *ngIf="text">You text: </h4>
+      <div *ngIf="text">{{text}}</div>
+      <audio #audio></audio>
+      <div>
+        <button class="btn btn-default" (click)="download()" *ngIf="text">Download</button>
+      </div>
     </div>
   </div>
 </div>

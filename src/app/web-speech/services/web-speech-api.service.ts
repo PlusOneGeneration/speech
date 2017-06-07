@@ -26,28 +26,26 @@ export class WebSpeechApiService {
         this.zone.run(() => observer.next(resultText) );
       }
 
-      this.speechRecognition.onspeechend = function (event) {
+      this.speechRecognition.onspeechend = (event) => {
         console.log('speech end');
         console.log('end', event);
-        // observer.complete();
-        // this.recognition.stop();
+        this.zone.run(() => observer.next(null) );
       }
 
-      // this.recognition.onnomatch() = (event) => {
-      this.speechRecognition.onnomatch = function (event) {
+      this.speechRecognition.onnomatch = (event) => {
         console.log('no mathc');
         observer.next(null);
       }
 
-      this.speechRecognition.onaudiostart = function() {
+      this.speechRecognition.onaudiostart = () => {
         console.log('Audio capturing started');
       }
 
-      this.speechRecognition.onspeechstart = function() {
+      this.speechRecognition.onspeechstart = () => {
         console.log('Speech has been detected');
       }
 
-      this.speechRecognition.onerror = function (event) {
+      this.speechRecognition.onerror = (event) => {
         // diagnostic.textContent = 'Error occurred in this.recognition: ' + event.error;
         console.log(`Error occurred in this.recognition: ${event.error}`);
         observer.error(event.error);
