@@ -17,11 +17,6 @@
       <audio #audio></audio>
       <div>
         <button class="btn btn-default" (click)="download()" *ngIf="text">Download</button>
-        <input type="file" ng2FileSelect [uploader]="uploader" />
-        <button type="button" class="btn btn-success btn-xs"
-                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-          <span class="glyphicon glyphicon-upload"></span> Upload
-        </button>
       </div>
     </div>
   </div>

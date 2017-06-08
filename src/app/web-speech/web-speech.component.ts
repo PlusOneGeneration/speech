@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {WebSpeechApiService} from "./services/web-speech-api.service";
 import {MediaRecorderService} from "./services/media-recorder.service";
 
-import { FileUploader } from 'ng2-file-upload';
+import {FileUploader, FileItem} from 'ng2-file-upload';
 
 @Component({
   selector: 'web-speech',
@@ -16,7 +16,7 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
   recordRTC: any;
   stream: any;
 
-  public uploader:FileUploader = new FileUploader({url: 'http://localhost:4200/api/files'});
+  public uploader: FileUploader = new FileUploader({url: 'http://localhost:4200/api/files'});
 
   @ViewChild('audio') audioElement;
 
@@ -24,7 +24,8 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
               private mediaRecorderService: MediaRecorderService) {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngAfterViewInit() {
     this.audio = this.audioElement.nativeElement;
@@ -50,6 +51,11 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
               }
 
               this.stopRecording();
+
+              //TODO @@@dr  need to refactor
+              if (resultText) {
+                this.upload();
+              }
               this.isRecording = false;
             },
             (error) => console.error(error)
@@ -61,6 +67,9 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
     this.webSpeechApiService.stopRecord();
     this.isRecording = false;
     this.stopRecording();
+
+    //TODO @@@dr  need to check resultText?
+    this.upload();
   }
 
   stopRecording(): void {
@@ -77,5 +86,12 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
       }, (error) => console.error(error));
   }
 
+  upload() {
+    let file = new File([this.recordRTC.getBlob()], 'test.wav');
+    let fileItem = new FileItem(this.uploader, file, this.uploader.options);
+
+    this.uploader.queue.push(fileItem);
+    this.uploader.uploadAll()
+  }
 
 }
