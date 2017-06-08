@@ -9,7 +9,7 @@ module.exports = class FileUploadMulterService {
   getStorage() {
     let storage = multer.diskStorage({
       destination: (req, file, cb) => cb(null, this.fileStoreConf.dir),
-      filename: (req, file, cb) => cb(null, `${file.fieldname}- ${Date.now()}.${this.fileStoreConf.fileExtension}`)
+      filename: (req, file, cb) => cb(null, `${file.fieldname}-${Date.now()}.${this.fileStoreConf.fileExtension}`)
     });
 
     return storage;

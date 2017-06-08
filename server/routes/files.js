@@ -14,7 +14,9 @@ module.exports = (app) => {
   });
 
   router.post('/',  FileUploadMulterService.uploadMiddleware(), (req, res, next) => {
-    res.send(req.file);
+    GoogleWebSpeechService.uploadFileToSpeech(req.file.path)
+      .then((resultText) => res.json({transcription: resultText}))
+      .catch((err) => next(err));
   });
 
   return router;
