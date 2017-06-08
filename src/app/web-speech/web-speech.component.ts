@@ -2,6 +2,8 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {WebSpeechApiService} from "./services/web-speech-api.service";
 import {MediaRecorderService} from "./services/media-recorder.service";
 
+import { FileUploader } from 'ng2-file-upload';
+
 @Component({
   selector: 'web-speech',
   templateUrl: './web-speech.component.html'
@@ -13,6 +15,8 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
 
   recordRTC: any;
   stream: any;
+
+  public uploader:FileUploader = new FileUploader({url: 'http://localhost:4200/api/files'});
 
   @ViewChild('audio') audioElement;
 

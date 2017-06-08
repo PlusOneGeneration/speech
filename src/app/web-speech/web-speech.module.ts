@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {MediaRecorderService} from "./services/media-recorder.service";
 import {WebRecordComponent} from "./web-record/web-record.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
+import {FileUploadModule} from "ng2-file-upload";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([]),
-    WebSpeechRoutingModule
+    WebSpeechRoutingModule,
+    FileUploadModule
   ],
   providers: [
     WebSpeechApiService,
