@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "converter.js",
+  "scripts": {
+    "start": "nodemon -i node_modules -i resources app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/speech": "^0.9.3",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "nodemon": "^1.11.0",
+    "plus.application": "^1.1.14"
+  }
+}
