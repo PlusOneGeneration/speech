@@ -12,8 +12,13 @@ export class MediaRecorderService {
       navigator.mediaDevices
         .getUserMedia(mediaElementOptions)
         .then((mediaStream) => {
-
-          let recordRTC = RecordRTC(mediaStream, recordOptions);
+        //TODO @@@dr merge options recored type with other options
+          let recordRTC = RecordRTC(mediaStream, {
+            recorderType: RecordRTC.StereoAudioRecorder,
+            mimeType: 'audio/wav;codecs=pcmrecordOptions',
+            desiredSampRate: 16000,
+            numberOfAudioChannels: 1
+          });
           recordRTC.startRecording();
 
           this.zone.run(() => observer.next({recordRTC: recordRTC, stream: mediaStream}));

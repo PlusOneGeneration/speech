@@ -2,6 +2,7 @@ import { Routes, RouterModule} from "@angular/router";
 import { NgModule} from "@angular/core";
 import { WebSpeechComponent} from "./web-speech.component";
 import {WebRecordComponent} from "./web-record/web-record.component";
+import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
 
 export const webSpeechRoutes: Routes = [
   {
@@ -13,7 +14,11 @@ export const webSpeechRoutes: Routes = [
       {
         path: 'record',
         component: WebRecordComponent,
-      }
+      },
+      // {
+      //   path: 'gspeech',
+      //   component: GoogleSpeechComponent,
+      // }
     ]
   }
   // ,

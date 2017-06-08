@@ -9,11 +9,13 @@ import {WebSpeechApiService} from "./services/web-speech-api.service";
 import {FormsModule} from "@angular/forms";
 import {MediaRecorderService} from "./services/media-recorder.service";
 import {WebRecordComponent} from "./web-record/web-record.component";
+import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
 
 @NgModule({
   declarations: [
     WebSpeechComponent,
-    WebRecordComponent
+    WebRecordComponent,
+    GoogleSpeechComponent
   ],
   imports: [
     BrowserModule,

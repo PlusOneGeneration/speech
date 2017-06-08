@@ -27,12 +27,7 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
   }
 
   start() {
-    const recordOptions = {
-      mimeType: 'audio/ogg;codecs=opus',
-      audioBitsPerSecond: 128000,
-      bitsPerSecond: 128000
-    };
-
+    const recordOptions = {};
     this.isRecording = true;
 
     this.mediaRecorderService.recordStart(recordOptions)
@@ -48,7 +43,6 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
               if (resultText) {
                 this.text = resultText;
                 this.audio.controls = true;
-
               }
 
               this.stopRecording();
@@ -73,7 +67,7 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
   }
 
   download(): void {
-    this.mediaRecorderService.download(this.recordRTC, Date.now().toString())
+    this.mediaRecorderService.download(this.recordRTC, Date.now().toString(), 'wav')
       .subscribe(() => {
         console.log('file downloaded!');
       }, (error) => console.error(error));
