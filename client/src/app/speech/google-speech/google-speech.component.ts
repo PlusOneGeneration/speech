@@ -15,7 +15,7 @@ export class GoogleSpeechComponent {
   constructor() {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       var responsePath = JSON.parse(response);
-      this.text = responsePath;
+      this.text = responsePath.transcription;
       this.loading = false;
     };
   }

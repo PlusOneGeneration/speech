@@ -4,7 +4,7 @@ const path = require('path');
 const fallback = require('express-history-api-fallback');
 const app = express();
 
-const staticDir = path.join(__dirname, '../dist');
+const staticDir = path.join(__dirname, './client/dist');
 app.use(express.static(staticDir));
 app.use(fallback('index.html', {root: staticDir}));
 
