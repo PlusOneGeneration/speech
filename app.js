@@ -2,7 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const fallback = require('express-history-api-fallback');
+const fs = require('fs');
+
 const app = express();
+
+require('now-logs')('tl8CXu5HkLBNSvxNdpl21FrN');
 
 const staticDir = path.join(__dirname, './client/dist');
 app.use(express.static(staticDir));
@@ -14,6 +18,9 @@ require('plus.application')
     env: process.env.NODE_ENV || 'dev'
   })
   .wrap(app);
+
+//write mode 511 equal 777
+fs.chmod(__dirname + '/resources', 511);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
