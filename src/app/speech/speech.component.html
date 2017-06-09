@@ -1,6 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
+      <input type="radio" value="googleSpeech" name="speech" [(ngModel)]="selectedSpeech"> Google Speech
+      <input type="radio" value="webSpeech" name="speech" [(ngModel)]="selectedSpeech"> Web Speech
+    </div>
+  </div>
+  <div class="row" *ngIf="selectedSpeech">
+    <div class="col-md-offset-4 col-md-4" >
       <h3>Recording: </h3>
       <button class="btn btn-default" (click)="start()">Start</button>
       <button class="btn btn-default" (click)="stop()">Stop</button>
@@ -10,15 +16,24 @@
     </div>
   </div>
   <hr>
-  <div class="row">
+  <div class="row" >
     <div class="col-md-offset-4 col-md-4" >
-
       <audio #audio></audio>
-      <div>
+
+      <div *ngIf="isRecordFinish">
         <button class="btn btn-default" (click)="download()">Download</button>
       </div>
     </div>
-    <web-speech #webSpeech></web-speech>
+
+    <div >
+      <div *ngIf="selectedSpeech == 'googleSpeech'">
+        <google-speech #speech></google-speech>
+      </div>
+      <div *ngIf="selectedSpeech == 'webSpeech'">
+        <web-speech #speech></web-speech>
+      </div>
+    </div>
+
   </div>
 </div>
 

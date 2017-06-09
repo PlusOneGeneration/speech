@@ -1,4 +1,9 @@
-<h3>G Speech</h3>
-<button (click)="start()"></button>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+      <h4 *ngIf="text">Google Speech result: </h4>
+      <div *ngIf="text && text.transcription">{{text.transcription}}</div>
+    </div>
+  </div>
+</div>
 
-<router-outlet></router-outlet>

@@ -1,39 +1,31 @@
 import {Component} from '@angular/core';
-import * as Speech from '@google-cloud/speech';
+import {FileUploader, FileItem} from 'ng2-file-upload';
 
 @Component({
   selector: 'google-speech',
   templateUrl: './google-speech.component.html'
 })
 export class GoogleSpeechComponent {
+  text: string = '';
 
-//   start() {
-//     const projectId = 'web-speech-170013';
-//
-// // Instantiates a client
-//     const speechClient = Speech({
-//       projectId: projectId
-//     });
-//
-// // The name of the audio file to transcribe
-//     const fileName = './resources/audio.raw';
-//
-// // The audio file's encoding, sample rate in hertz, and BCP-47 language code
-//     const options = {
-//       encoding: 'LINEAR16',
-//       sampleRateHertz: 16000,
-//       languageCode: 'en-US'
-//     };
-//
-// // Detects speech in the audio file
-//     speechClient.recognize(fileName, options)
-//       .then((results) => {
-//         const transcription = results[0];
-//         console.log(`Transcription: ${transcription}`);
-//       })
-//       .catch((err) => {
-//         console.error('ERROR:', err);
-//       });
-//   }
+  uploader: FileUploader = new FileUploader({url: 'http://localhost:4200/api/files'});
 
+
+  constructor() {
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      var responsePath = JSON.parse(response);
+      this.text = responsePath;
+    };
+  }
+
+  start():void {
+
+  }
+
+  stop(blob: Blob):void {
+    let file = new File([blob], 'test.wav');
+    let fileItem = new FileItem(this.uploader, file, this.uploader.options);
+    this.uploader.queue.push(fileItem);
+    this.uploader.uploadAll();
+  }
 }
