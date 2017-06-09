@@ -1,8 +1,20 @@
 <div class="container">
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
-      <input type="radio" value="googleSpeech" name="speech" [(ngModel)]="selectedSpeech"> Google Speech
-      <input type="radio" value="webSpeech" name="speech" [(ngModel)]="selectedSpeech"> Web Speech
+      <input
+        type="radio"
+        value="googleSpeech"
+        name="speech"
+        [(ngModel)]="selectedSpeech"
+        (ngModelChange)="speechChanged($event)">
+      Google Speech
+      <input
+        type="radio"
+        value="webSpeech"
+        name="speech"
+        [(ngModel)]="selectedSpeech"
+        (ngModelChange)="speechChanged($event)">
+      Web Speech
     </div>
   </div>
   <div class="row" *ngIf="selectedSpeech">
@@ -28,7 +40,7 @@
 
   <div class="row" style="margin-top: 1em">
     <div class="col-md-offset-4 col-md-4">
-      <audio #audio></audio>
+      <audio #audio [ngClass]="{'hide-player': !isRecordFinish}"></audio>
       <div *ngIf="isRecordFinish">
         <h4 class="pull-left">Your voice record</h4>
         <button class="btn btn-default" style="margin-left: 1em" (click)="download()">Download</button>

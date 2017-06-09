@@ -69,4 +69,9 @@ export class SpeechComponent implements OnInit, AfterViewInit {
       }, (error) => console.error(error));
   }
 
+  speechChanged($event): void {
+    this.isRecordFinish = false;
+    this.isRecording = false;
+  }
+
 }
