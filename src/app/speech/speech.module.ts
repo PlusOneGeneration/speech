@@ -12,6 +12,7 @@ import {WebRecordComponent} from "./web-record/web-record.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
 import {FileUploadModule} from "ng2-file-upload";
 import {SpeechComponent} from "./speech.component";
+import {UiModule} from "../ui/ui.module";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {SpeechComponent} from "./speech.component";
     FormsModule,
     RouterModule.forRoot([]),
     WebSpeechRoutingModule,
-    FileUploadModule
+    FileUploadModule,
+    UiModule
   ],
   providers: [
     WebSpeechApiService,

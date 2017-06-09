@@ -7,14 +7,15 @@ import {FileUploader, FileItem} from 'ng2-file-upload';
 })
 export class GoogleSpeechComponent {
   text: string = '';
+  loading: boolean = false;
 
   uploader: FileUploader = new FileUploader({url: 'http://localhost:4200/api/files'});
-
 
   constructor() {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       var responsePath = JSON.parse(response);
       this.text = responsePath;
+      this.loading = false;
     };
   }
 
@@ -23,6 +24,7 @@ export class GoogleSpeechComponent {
   }
 
   stop(blob: Blob):void {
+    this.loading = true;
     let file = new File([blob], 'test.wav');
     let fileItem = new FileItem(this.uploader, file, this.uploader.options);
     this.uploader.queue.push(fileItem);

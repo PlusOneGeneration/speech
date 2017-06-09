@@ -16,7 +16,6 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   recordRTC: any;
   stream: any;
 
-
   @ViewChild('audio') audioElement;
   @ViewChild('speech') speech: WebSpeechComponent | GoogleSpeechComponent | any;
 
