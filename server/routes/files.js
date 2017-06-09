@@ -6,6 +6,7 @@ module.exports = (app) => {
   const FileUploadMulterService = app.container.get('FileUploadMulterService');
 
   router.get('/', (req, res, next) => {
+    //TODO @@@dr remove this route
     GoogleWebSpeechService.uploadFileToSpeech('./resources/test.wav')
       .then((resultText) => {
         res.json(resultText);

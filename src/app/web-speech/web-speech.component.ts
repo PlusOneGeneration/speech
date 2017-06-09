@@ -15,6 +15,7 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
 
   recordRTC: any;
   stream: any;
+  googleSpeechResult: any;
 
   public uploader: FileUploader = new FileUploader({url: 'http://localhost:4200/api/files'});
 
@@ -22,6 +23,11 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
 
   constructor(private webSpeechApiService: WebSpeechApiService,
               private mediaRecorderService: MediaRecorderService) {
+
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      var responsePath = JSON.parse(response);
+      this.googleSpeechResult = responsePath;
+    };
   }
 
   ngOnInit(): void {
@@ -51,11 +57,6 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
               }
 
               this.stopRecording();
-
-              //TODO @@@dr  need to refactor
-              if (resultText) {
-                this.upload();
-              }
               this.isRecording = false;
             },
             (error) => console.error(error)
@@ -69,13 +70,15 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
     this.stopRecording();
 
     //TODO @@@dr  need to check resultText?
-    this.upload();
+    this.upload(this.recordRTC.getBlob());
   }
 
   stopRecording(): void {
     this.mediaRecorderService.recordStop(this.recordRTC, this.stream)
-      .subscribe((audioVideoWebMURL) => {
-        this.audio.src = audioVideoWebMURL;
+      .subscribe((result) => {
+        this.audio.src = result.audioVideoWebMURL;
+        this.upload(this.recordRTC.getBlob());
+
       });
   }
 
@@ -86,12 +89,16 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
       }, (error) => console.error(error));
   }
 
-  upload() {
-    let file = new File([this.recordRTC.getBlob()], 'test.wav');
+  //TODO @@@dr move to service
+  private upload(blob: Blob) {
+    let file = new File([blob], 'test.wav');
     let fileItem = new FileItem(this.uploader, file, this.uploader.options);
-
     this.uploader.queue.push(fileItem);
-    this.uploader.uploadAll()
+    this.uploader.uploadAll();
+
+    if (this.googleSpeechResult && this.googleSpeechResult.transcription) {
+
+    }
   }
 
 }

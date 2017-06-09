@@ -27,11 +27,13 @@ export class MediaRecorderService {
     });
   }
 
-  recordStop(recordRTC: RecordRTC, stream: MediaStream): Observable<string> {
+  // recordStop(recordRTC: RecordRTC, stream: MediaStream): Observable<string> {
+  //TODO @@@dr need to check send recordRTC or not
+  recordStop(recordRTC: RecordRTC, stream: MediaStream): Observable<any> {
     return Observable.create((observer) => {
       recordRTC.stopRecording((audioVideoWebMURL) => {
 
-        this.zone.run(() => observer.next(audioVideoWebMURL));
+        this.zone.run(() => observer.next({recordRTC: recordRTC, audioVideoWebMURL: audioVideoWebMURL}));
 
         stream.getAudioTracks().forEach(track => track.stop());
         stream.getVideoTracks().forEach(track => track.stop());
