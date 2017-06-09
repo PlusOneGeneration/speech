@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { WebSpeechRoutingModule} from "./web-speech.routing.module";
+import { WebSpeechRoutingModule} from "./speech.routing.module";
 import {RouterModule} from "@angular/router";
 
-import { WebSpeechComponent } from './web-speech.component';
+import { WebSpeechComponent } from './web-speech/web-speech.component';
 import {WebSpeechApiService} from "./services/web-speech-api.service";
 import {FormsModule} from "@angular/forms";
 import {MediaRecorderService} from "./services/media-recorder.service";
@@ -32,4 +32,4 @@ import {FileUploadModule} from "ng2-file-upload";
   exports: [WebSpeechComponent],
   // bootstrap: [WebSpeechComponent]
 })
-export class WebSpeechModule { }
+export class SpeechModule { }

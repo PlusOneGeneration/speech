@@ -1,10 +1,10 @@
 import { Routes, RouterModule} from "@angular/router";
 import { NgModule} from "@angular/core";
-import { WebSpeechComponent} from "./web-speech.component";
+import { WebSpeechComponent} from "./web-speech/web-speech.component";
 import {WebRecordComponent} from "./web-record/web-record.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
 
-export const webSpeechRoutes: Routes = [
+export const speechRoutes: Routes = [
   {
     path: 'web-speech',
     component: WebSpeechComponent,
@@ -31,7 +31,7 @@ export const webSpeechRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(webSpeechRoutes)
+    RouterModule.forChild(speechRoutes)
   ],
   providers: [],
   exports: [RouterModule]

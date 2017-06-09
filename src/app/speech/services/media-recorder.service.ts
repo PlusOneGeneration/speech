@@ -19,6 +19,7 @@ export class MediaRecorderService {
             desiredSampRate: 16000,
             numberOfAudioChannels: 1
           });
+          console.log('recordRTC =>>>', recordRTC);
           recordRTC.startRecording();
 
           this.zone.run(() => observer.next({recordRTC: recordRTC, stream: mediaStream}));

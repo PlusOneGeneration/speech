@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {WebSpeechApiService} from "./services/web-speech-api.service";
-import {MediaRecorderService} from "./services/media-recorder.service";
+import {WebSpeechApiService} from "../services/web-speech-api.service";
+import {MediaRecorderService} from "../services/media-recorder.service";
 
 import {FileUploader, FileItem} from 'ng2-file-upload';
 
@@ -47,20 +47,20 @@ export class WebSpeechComponent implements OnInit, AfterViewInit {
         this.stream = data.stream;
         this.recordRTC = data.recordRTC;
 
-        this.webSpeechApiService
-          .record()
-          .subscribe(
-            (resultText) => {
-              if (resultText) {
-                this.text = resultText;
-                this.audio.controls = true;
-              }
-
-              this.stopRecording();
-              this.isRecording = false;
-            },
-            (error) => console.error(error)
-          );
+        // this.webSpeechApiService
+        //   .record()
+        //   .subscribe(
+        //     (resultText) => {
+        //       if (resultText) {
+        //         this.text = resultText;
+        //         this.audio.controls = true;
+        //       }
+        //
+        //       this.stopRecording();
+        //       this.isRecording = false;
+        //     },
+        //     (error) => console.error(error)
+        //   );
       });
   }
 

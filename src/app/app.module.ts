@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {WebSpeechApiService} from "./web-speech/services/web-speech-api.service";
-import {WebSpeechModule} from "./web-speech/web-speech.module";
+import {WebSpeechApiService} from "./speech/services/web-speech-api.service";
+import {SpeechModule} from "./speech/speech.module";
 import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
@@ -13,7 +13,7 @@ import {AppRoutingModule} from "./app-routing.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    WebSpeechModule
+    SpeechModule
   ],
   providers: [
     WebSpeechApiService
