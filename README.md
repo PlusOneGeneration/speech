@@ -1,4 +1,4 @@
-##Project overview
+## Project overview
 Speech application work with two api [Web Speech Api](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) and [Google Speech Api](https://cloud.google.com/speech/)
 
 How it's works:
@@ -14,23 +14,23 @@ You can test application only on `localhost` or `https protocol`.
 
 [Demo](https://server-whuddmoggm.now.sh/app/speech)
 
-##Dependencies
+## Dependencies
 - node v6.\*.\* required
 
-##Setup
+## Setup
 ```
 git clone https://github.com/PlusOneGeneration/speech.git
 cd speech
 npm install
 ```
 
-##Start application
+## Start application
 Production mode: `npm run build.front` and `npm start`
 
 Development mode: `npm run start.dev` and `cd client && npm start`.  By default client app started on `http://localhost:4200` and connect with proxy to backend default `localhost:3000`. Angular cli proxy configuration: `client/proxy.conf.json`
 
 
-##Technologies
+## Technologies
 - express js 
 - angular 2
 - RecordRTC
