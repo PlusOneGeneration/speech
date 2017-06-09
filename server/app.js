@@ -1,7 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const path = require('path');
+const fallback = require('express-history-api-fallback');
 const app = express();
+
+const staticDir = path.join(__dirname, '../dist');
+app.use(express.static(staticDir));
+app.use(fallback('index.html', {root: staticDir}));
 
 require('plus.application')
   .create({
