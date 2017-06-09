@@ -12,10 +12,7 @@
   <hr>
   <div class="row">
     <div class="col-md-offset-4 col-md-4" >
-      <h4 *ngIf="text">Web Speech Api result: </h4>
-      <div *ngIf="text">{{text}}</div>
-      <h4 *ngIf="googleSpeechResult && googleSpeechResult.transcription">Google Speech Api result: </h4>
-      <div *ngIf="googleSpeechResult && googleSpeechResult.transcription">{{googleSpeechResult.transcription}}</div>
+
       <audio #audio></audio>
       <div>
         <button class="btn btn-default" (click)="download()" *ngIf="text">Download</button>

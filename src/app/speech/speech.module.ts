@@ -11,11 +11,13 @@ import {MediaRecorderService} from "./services/media-recorder.service";
 import {WebRecordComponent} from "./web-record/web-record.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
 import {FileUploadModule} from "ng2-file-upload";
+import {SpeechComponent} from "./speech.component";
 
 @NgModule({
   declarations: [
     WebSpeechComponent,
     WebRecordComponent,
+    SpeechComponent,
     GoogleSpeechComponent
   ],
   imports: [

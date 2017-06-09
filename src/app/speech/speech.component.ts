@@ -23,11 +23,6 @@ export class SpeechComponent implements OnInit, AfterViewInit {
 
   constructor(private webSpeechApiService: WebSpeechApiService,
               private mediaRecorderService: MediaRecorderService) {
-
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      var responsePath = JSON.parse(response);
-      this.googleSpeechResult = responsePath;
-    };
   }
 
   ngOnInit(): void {
@@ -46,6 +41,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
         this.audio.src = window.URL.createObjectURL(data.stream);
         this.stream = data.stream;
         this.recordRTC = data.recordRTC;
+        this.audio.controls = true;
 
         // this.webSpeechApiService
         //   .record()
@@ -65,19 +61,19 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   }
 
   stop() {
-    this.webSpeechApiService.stopRecord();
+    // this.webSpeechApiService.stopRecord();
     this.isRecording = false;
     this.stopRecording();
 
     //TODO @@@dr  need to check resultText?
-    this.upload(this.recordRTC.getBlob());
+    // this.upload(this.recordRTC.getBlob());
   }
 
   stopRecording(): void {
     this.mediaRecorderService.recordStop(this.recordRTC, this.stream)
       .subscribe((result) => {
         this.audio.src = result.audioVideoWebMURL;
-        this.upload(this.recordRTC.getBlob());
+        // this.upload(this.recordRTC.getBlob());
 
       });
   }

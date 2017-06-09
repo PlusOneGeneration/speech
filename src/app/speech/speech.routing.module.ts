@@ -3,11 +3,12 @@ import { NgModule} from "@angular/core";
 import { WebSpeechComponent} from "./web-speech/web-speech.component";
 import {WebRecordComponent} from "./web-record/web-record.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
+import {SpeechComponent} from "./speech.component";
 
 export const speechRoutes: Routes = [
   {
-    path: 'web-speech',
-    component: WebSpeechComponent,
+    path: 'speech',
+    component: SpeechComponent,
     data: { title: 'WebSpeech' },
     canActivate: [],
     children: [
