@@ -14,7 +14,7 @@ export class WebSpeechApiService {
       const {webkitSpeechRecognition} : IWindow = <IWindow>window;
 
       this.speechRecognition = new webkitSpeechRecognition();
-      this.speechRecognition.lang = 'ru-ru';
+      this.speechRecognition.lang = 'en-us';
       this.speechRecognition.continuous = true;
 
       this.speechRecognition.maxAlternatives = 1;

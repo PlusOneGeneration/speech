@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="row" *ngIf="selectedSpeech">
-    <div class="col-md-offset-4 col-md-4" >
+    <div class="col-md-offset-4 col-md-4">
       <h3>Recording: </h3>
       <button class="btn btn-default" (click)="start()">Start</button>
       <button class="btn btn-default" (click)="stop()">Stop</button>
@@ -16,24 +16,25 @@
     </div>
   </div>
   <hr>
-  <div class="row" >
-    <div class="col-md-offset-4 col-md-4" >
-      <audio #audio></audio>
-
-      <div *ngIf="isRecordFinish">
-        <button class="btn btn-default" (click)="download()">Download</button>
-      </div>
+  <div class="row">
+    <div *ngIf="selectedSpeech == 'googleSpeech'">
+      <google-speech #speech></google-speech>
     </div>
-
-    <div >
-      <div *ngIf="selectedSpeech == 'googleSpeech'">
-        <google-speech #speech></google-speech>
-      </div>
-      <div *ngIf="selectedSpeech == 'webSpeech'">
-        <web-speech #speech></web-speech>
-      </div>
+    <div *ngIf="selectedSpeech == 'webSpeech'">
+      <web-speech #speech></web-speech>
     </div>
-
+    <div style="margin-bottom: 1em"></div>
   </div>
+
+  <div class="row" style="margin-top: 1em">
+    <div class="col-md-offset-4 col-md-4">
+      <audio #audio></audio>
+      <div *ngIf="isRecordFinish">
+        <h4 class="pull-left">Your voice record</h4>
+        <button class="btn btn-default" style="margin-left: 1em" (click)="download()">Download</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
