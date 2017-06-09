@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  fileUploadUrl: 'http://localhost:4200/api/files'
+  fileUploadUrl: '/api/files'
 };

@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  fileUploadUrl: 'http://localhost:3000/api/files',
+  fileUploadUrl: '/api/files',
   envName: 'test'
 };
