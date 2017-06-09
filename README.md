@@ -26,9 +26,9 @@ npm install
 
 ##Start application
 Production mode: `npm run build.front` and `npm start`
+
 Development mode: `npm run start.dev` and `cd client && npm start`.  By default client app started on `http://localhost:4200` and connect with proxy to backend default `localhost:3000`. Angular cli proxy configuration: `client/proxy.conf.json`
 
-Application started by default on `http://localhost:3000`.
 
 ##Technologies
 - express js 
