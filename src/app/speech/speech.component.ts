@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {WebSpeechApiService} from "./services/web-speech-api.service";
 import {MediaRecorderService} from "./services/media-recorder.service";
 
 import {FileUploader, FileItem} from 'ng2-file-upload';
+import {WebSpeechComponent} from "./web-speech/web-speech.component";
 
 @Component({
   selector: 'speech',
@@ -20,9 +20,9 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   public uploader: FileUploader = new FileUploader({url: 'http://localhost:4200/api/files'});
 
   @ViewChild('audio') audioElement;
+  @ViewChild('webSpeech') webSpeechComponent: WebSpeechComponent;
 
-  constructor(private webSpeechApiService: WebSpeechApiService,
-              private mediaRecorderService: MediaRecorderService) {
+  constructor(private mediaRecorderService: MediaRecorderService) {
   }
 
   ngOnInit(): void {
@@ -43,30 +43,14 @@ export class SpeechComponent implements OnInit, AfterViewInit {
         this.recordRTC = data.recordRTC;
         this.audio.controls = true;
 
-        // this.webSpeechApiService
-        //   .record()
-        //   .subscribe(
-        //     (resultText) => {
-        //       if (resultText) {
-        //         this.text = resultText;
-        //         this.audio.controls = true;
-        //       }
-        //
-        //       this.stopRecording();
-        //       this.isRecording = false;
-        //     },
-        //     (error) => console.error(error)
-        //   );
+        this.webSpeechComponent.start();
       });
   }
 
   stop() {
-    // this.webSpeechApiService.stopRecord();
     this.isRecording = false;
+    this.webSpeechComponent.stop();
     this.stopRecording();
-
-    //TODO @@@dr  need to check resultText?
-    // this.upload(this.recordRTC.getBlob());
   }
 
   stopRecording(): void {

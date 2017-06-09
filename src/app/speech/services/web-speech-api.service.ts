@@ -15,7 +15,7 @@ export class WebSpeechApiService {
 
       this.speechRecognition = new webkitSpeechRecognition();
       this.speechRecognition.lang = 'ru-ru';
-      // this.recognition.continuous = true;
+      this.speechRecognition.continuous = true;
 
       this.speechRecognition.maxAlternatives = 1;
 
