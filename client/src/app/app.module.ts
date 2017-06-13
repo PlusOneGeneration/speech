@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import {WebSpeechApiService} from "./speech/services/web-speech-api.service";
 import {SpeechModule} from "./speech/speech.module";
 import {AppRoutingModule} from "./app-routing.module";
+import {AuthModule} from "./auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {AppRoutingModule} from "./app-routing.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SpeechModule
+    SpeechModule,
+    AuthModule
   ],
   providers: [
     WebSpeechApiService

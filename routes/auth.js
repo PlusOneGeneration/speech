@@ -11,7 +11,7 @@ module.exports = (app) => {
     passport.use(new GoogleStrategy({
             clientID: '554942612534-i09vd6bgf5l83hht1rf13upec13haq5b.apps.googleusercontent.com',
             clientSecret: '67XR388ukMrZizQ994UBpRk3',
-            callbackURL: "http://localhost:4200/auth/google/callback"
+            callbackURL: "http://localhost:4200/api/auth/google/callback"
         },
         function (token, tokenSecret, profile, done) {
             console.log('profile +>>>>>>', profile);
@@ -36,7 +36,7 @@ module.exports = (app) => {
         passport.authenticate('google', {failureRedirect: '/login'}),
         function (req, res) {
             console.log('USER =>>', req.user);
-            res.redirect('/');
+            res.redirect('/app/speech');
         });
 
 

@@ -1,10 +1,12 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {speechRoutes} from "./speech/speech.routing.module";
+import {authRoutes} from "./auth/auth.routing.module";
 
 const routes: Routes = [
   {path: '', redirectTo: 'app/speech', pathMatch: 'full'},
   {path: 'app', redirectTo: 'app/speech', pathMatch: 'full'},
+  ...authRoutes,
   {
     path: 'app',
     children: [
