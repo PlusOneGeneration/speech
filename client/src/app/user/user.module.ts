@@ -7,6 +7,7 @@ import {RouterModule} from "@angular/router";
 import { UserComponent } from './user.component';
 import { UserService } from './user.service';
 import {UserTokenService} from "./services/user-token.service";
+import {UserResource} from "./user.resource";
 
 
 @NgModule({
@@ -19,10 +20,13 @@ import {UserTokenService} from "./services/user-token.service";
     UserRoutingModule
   ],
   providers: [
+    UserResource,
     UserService,
     UserTokenService
   ],
-  exports: [UserComponent],
+  exports: [
+    UserComponent
+  ],
   // bootstrap: [UserComponent]
 })
 export class UserModule { }

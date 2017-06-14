@@ -8,7 +8,7 @@ import { AuthComponent } from './auth.component';
 import { AuthService } from './auth.service';
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {TokenComponent} from "./token/token.component";
-
+import {AuthResource} from "./auth.resource";
 
 @NgModule({
   declarations: [
@@ -21,7 +21,10 @@ import {TokenComponent} from "./token/token.component";
     RouterModule.forRoot([]),
     AuthRoutingModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthResource,
+    AuthService
+  ],
   exports: [AuthComponent],
   // bootstrap: [AuthComponent]
 })

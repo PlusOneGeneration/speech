@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from "./user.service";
 // import { UserService } from "./user.service";
 // import { User } from "./User";
 // import {ActivatedRoute} from "@angular/router";
@@ -7,14 +8,16 @@ import {Component} from '@angular/core';
   selector: 'user',
   templateUrl: './user.component.html'
 })
-export class UserComponent {
+export class UserComponent implements OnInit{
   title = 'User works!';
-  // constructor(private userService: UserService, private route: ActivatedRoute) {}
+  constructor(private userService: UserService) {}
 
-  // ngOnInit(): void {
-  //   this.route.data
-  //   .map((data: { user: User }) => data.user)
-  //   .subscribe((user: User) => console.log(user));
-  // }
+  ngOnInit(): void {
+    this.userService.getMe()
+          .subscribe((user) => {
+            console.log('USER =>>', user);
+          });
+
+  }
 
 }

@@ -9,8 +9,12 @@ module.exports = (app) => {
     //    
     // });
 
-    router.get('/', (req, res, next) => {
+    // router.get('/', (req, res, next) => {
+    //
+    // });
 
+    router.get('/me', (req, res, next) => {
+        res.json(req.user);
     });
 
     router.get('/:userId', (req, res, next) => {
