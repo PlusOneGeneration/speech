@@ -5,7 +5,7 @@ module.exports = (container) => {
     container.add('FileUploadMulterService', require('../services/FileUploadMulterService'), ['config/fileStore']);
     container.add('UserService', require('../services/UserService'), ['User']);
     container.add('TokenService', require('../services/TokenService'), ['config/jwtConfig']);
-    container.add('AuthService', require('../services/AuthService'), ['TokenService']);
+    container.add('AuthService', require('../services/AuthService'), ['TokenService', 'config/jwtConfig']);
 
     //Models
     container.add('User', require('../models/User'), ['Mongoose']);

@@ -16,11 +16,11 @@ app.use(fallback('index.html', {root: staticDir}));
 app.use(passport.initialize());
 
 require('plus.application')
-  .create({
-    dir: __dirname + '/config',
-    env: process.env.NODE_ENV || 'dev'
-  })
-  .wrap(app);
+    .create({
+        dir: __dirname + '/config',
+        env: process.env.NODE_ENV || 'dev'
+    })
+    .wrap(app);
 
 //write mode 511 equal 777
 fs.chmod(__dirname + '/resources', 511);
@@ -31,12 +31,17 @@ app.use(bodyParser.urlencoded());
 app.use(require('./routes/router')(app));
 
 app.use((err, req, res, next) => {
-  console.log('[ERROR] ', err.message);
-  console.log('[ERROR] ', err.stack);
-  res.status(500).send();
+    if (err && err.name === 'UnauthorizedError') {
+        res.status(401).json({error: 'Invalid token'});
+    }else {
+        console.log('[ERROR] ', err.message);
+        console.log('[ERROR] ', err.stack);
+        res.status(500).send();
+    }
+
 });
 
 app.listen(
-  app.config.get('port'),
-  () => console.log(`Application started ${app.config.get('port')}`)
+    app.config.get('port'),
+    () => console.log(`Application started ${app.config.get('port')}`)
 );

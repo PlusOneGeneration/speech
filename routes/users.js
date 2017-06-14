@@ -2,19 +2,14 @@ module.exports = (app) => {
     const {Router} = require('express');
     const router = Router();
 
-    // const SampleService = app.container.get('SampleService');
     const UserService = app.container.get('UserService');
-
-    // router.param('paramId', (id, req, res, next) => {
-    //    
-    // });
-
-    // router.get('/', (req, res, next) => {
-    //
-    // });
+    const AuthService = app.container.get('AuthService');
 
     router.get('/me', (req, res, next) => {
-        res.json(req.user);
+        UserService.getById(req.user.userId)
+            .then((user) => req.user = user)
+            .then(() => res.json(req.user))
+            .catch((err) => next(err));
     });
 
     router.get('/:userId', (req, res, next) => {
