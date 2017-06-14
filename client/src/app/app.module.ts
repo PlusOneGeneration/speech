@@ -6,6 +6,9 @@ import {WebSpeechApiService} from "./speech/services/web-speech-api.service";
 import {SpeechModule} from "./speech/speech.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {AuthModule} from "./auth/auth.module";
+import {LocalStorageModule} from "angular-2-local-storage";
+import {UserModule} from "./user/user.module";
+import {StorageService} from "./services/storage.service";
 
 @NgModule({
   declarations: [
@@ -14,11 +17,19 @@ import {AuthModule} from "./auth/auth.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    LocalStorageModule.withConfig({
+      prefix: 'app',
+      storageType: 'localStorage'
+      // storageType: 'sessionStorage'
+    }),
     SpeechModule,
-    AuthModule
+    AuthModule,
+    UserModule
   ],
   providers: [
-    WebSpeechApiService
+    //TODO @@@dr check we need it or not
+    WebSpeechApiService,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

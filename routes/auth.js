@@ -6,6 +6,7 @@ module.exports = (app) => {
     const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
     const UserService = app.container.get('UserService');
+    const AuthService = app.container.get('AuthService');
 
     //TODO @@@dr move conf to file conf
     passport.use(new GoogleStrategy({
@@ -40,7 +41,12 @@ module.exports = (app) => {
     router.get('/google/callback',
         passport.authenticate('google', {failureRedirect: '/auth/sign-in'}),
         function (req, res) {
-            res.redirect('/app/speech');
+            if(!req.user){
+                return res.send('Something went wrong');
+            }
+
+            AuthService.createAuthToken(req.user)
+                .then((token) => res.redirect('/auth/token/' + token));
         });
 
 

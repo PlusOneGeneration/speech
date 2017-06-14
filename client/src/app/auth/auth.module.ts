@@ -7,12 +7,14 @@ import {RouterModule} from "@angular/router";
 import { AuthComponent } from './auth.component';
 import { AuthService } from './auth.service';
 import {SignInComponent} from "./sign-in/sign-in.component";
+import {TokenComponent} from "./token/token.component";
 
 
 @NgModule({
   declarations: [
     AuthComponent,
-    SignInComponent
+    SignInComponent,
+    TokenComponent
   ],
   imports: [
     BrowserModule,

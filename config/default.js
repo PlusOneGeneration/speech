@@ -6,5 +6,8 @@ module.exports = {
     fileStore: {
         dir: './resources/',
         fileExtension: 'wav',
+    },
+    jwtConfig: {
+        secret: 'a6944J417TYMaYeEdulzD22M2srhWal1Fa5aD22M2srhWal1Fa5a6VjcwUYeEdubDbaYpnPH2j0MpE4J417TYMaWVjcwUYeEdulzD2xat0342k340'
     }
 }

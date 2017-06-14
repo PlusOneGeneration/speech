@@ -4,6 +4,7 @@ import { AuthComponent} from "./auth.component";
 import { AuthResolver} from "./auth.resolver";
 import { AuthCanActivate} from "./auth.canActivate";
 import {SignInComponent} from "./sign-in/sign-in.component";
+import {TokenComponent} from "./token/token.component";
 
 export const authRoutes: Routes = [
   {
@@ -14,6 +15,10 @@ export const authRoutes: Routes = [
       {
         path: 'sign-in',
         component: SignInComponent,
+      },
+      {
+        path: 'token/:token',
+        component: TokenComponent,
       }
     ]
   }
