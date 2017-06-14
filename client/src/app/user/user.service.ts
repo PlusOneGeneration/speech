@@ -15,7 +15,17 @@ export class UserService {
     if (this.user$.getValue()) {
       return this.user$;
     } else {
-      return this.getMe();
+      return Observable.create(
+        (observer) => {
+          this.getMe()
+            .subscribe((user) => {
+                this.user$.next(user)
+                observer.next(user);
+              },
+              (error) => observer.error(error)
+            );
+
+        });
     }
   }
 

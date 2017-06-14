@@ -14,6 +14,9 @@ import {UserTokenService} from "./user/services/user-token.service";
 import {Http, RequestOptions, XHRBackend} from "@angular/http";
 import {HttpService} from "./http.service";
 
+export function httpUseFactory(backend: XHRBackend, defaultOptions: RequestOptions, userTokenService: UserTokenService) {
+  return new HttpService(backend, defaultOptions, userTokenService);
+}
 
 @NgModule({
   declarations: [
@@ -35,7 +38,7 @@ import {HttpService} from "./http.service";
   providers: [
     {
       provide: Http,
-      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions, userTokenService: UserTokenService) => new HttpService(backend, defaultOptions, userTokenService),
+      useFactory: httpUseFactory,
       deps: [XHRBackend, RequestOptions, UserTokenService]
     },
     //TODO @@@dr check we need it or not

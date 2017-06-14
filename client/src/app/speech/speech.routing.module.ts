@@ -11,7 +11,7 @@ export const speechRoutes: Routes = [
     path: 'speech',
     component: SpeechComponent,
     data: { title: 'WebSpeech' },
-    canActivate: [UserCanActivate],
+    // canActivate: [UserCanActivate],
     children: [
       {
         path: 'record',

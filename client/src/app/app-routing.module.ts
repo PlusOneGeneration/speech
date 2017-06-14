@@ -12,6 +12,7 @@ const routes: Routes = [
   ...authRoutes,
   {
     path: 'app',
+    // canActivate: [UserCanActivate],
     resolve: {
       user: UserResolver
     },

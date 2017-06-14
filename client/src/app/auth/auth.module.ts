@@ -9,12 +9,14 @@ import { AuthService } from './auth.service';
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {TokenComponent} from "./token/token.component";
 import {AuthResource} from "./auth.resource";
+import {SignOutComponent} from "./sign-out/sign-out.component";
 
 @NgModule({
   declarations: [
     AuthComponent,
     SignInComponent,
-    TokenComponent
+    TokenComponent,
+    SignOutComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,7 @@ import {AuthResource} from "./auth.resource";
     AuthResource,
     AuthService
   ],
-  exports: [AuthComponent],
+  exports: [SignOutComponent],
   // bootstrap: [AuthComponent]
 })
 export class AuthModule { }

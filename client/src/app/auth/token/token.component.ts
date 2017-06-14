@@ -17,7 +17,8 @@ export class TokenComponent implements OnInit {
     this.route.params
       .subscribe((params) => {
         this.userTokenService.setToken(params['token']);
-        this.router.navigate(['/app']);
+        //TODO @@@dr fix route
+        this.router.navigate(['app']);
       });
   }
 

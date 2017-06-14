@@ -11,6 +11,10 @@
       <a class="navbar-brand" href="/">Web Speech</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
+      <p class="navbar-text pull-right" *ngIf="user">
+        Signed in as <strong>{{user.email}}</strong>
+        <sign-out></sign-out>
+      </p>
     </div><!--/.nav-collapse -->
   </div>
 </nav>

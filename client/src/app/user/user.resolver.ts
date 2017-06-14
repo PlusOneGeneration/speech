@@ -12,6 +12,19 @@ export class UserResolver implements Resolve<User> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> | User {
-    return this.userService.me();
+    return Observable.create((observer) => {
+      this.userService.me()
+        .subscribe((user) => {
+            if (!user) {
+              //TODO @@@dr fix this redirect
+              this.router.navigate(['auth', 'sign-in']);
+            }
+
+            observer.next(user);
+          },
+          (error) => {
+            location.href = '/auth/sign-in';
+          });
+    });
   }
 }
