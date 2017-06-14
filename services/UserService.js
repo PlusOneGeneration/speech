@@ -24,4 +24,15 @@ module.exports = class UserService {
 
         return this.create(userData);
     }
+
+    createUserFromFacebook(params) {
+        let userData = {
+            name: params.name.familyName + ' ' + params.name.givenName,
+            email: params.emails[0].value,
+            facebookId: params.id,
+            profileUrl: params.profileUrl
+        };
+
+        return this.create(userData);
+    }
 }

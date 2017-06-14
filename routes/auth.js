@@ -4,6 +4,7 @@ module.exports = (app) => {
 
     const passport = require('passport');
     const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    const FacebookStrategy = require('passport-facebook').Strategy;
 
     const UserService = app.container.get('UserService');
     const AuthService = app.container.get('AuthService');
@@ -28,6 +29,27 @@ module.exports = (app) => {
                     (err) => done(err));
         }));
 
+    passport.use(new FacebookStrategy({
+            clientID: '823319997844715',
+            clientSecret: 'a227fb42a2caa2b188f5d9f6056f7c76',
+            callbackURL: "http://localhost:4200/api/auth/facebook/callback",
+            profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
+        },
+        function (accessToken, refreshToken, profile, done) {
+            UserService.getByEmail(profile.emails[0].value)
+                .then(
+                    (user) => {
+                        if (!user) {
+                            return UserService.createUserFromFacebook(profile)
+                                .then((user) => done(null, user));
+                        }
+
+                        return done(null, user);
+                    },
+                    (err) => done(err));
+        }
+    ));
+
     passport.serializeUser(function (user, done) {
         done(null, user);
     });
@@ -40,8 +62,21 @@ module.exports = (app) => {
 
     router.get('/google/callback',
         passport.authenticate('google', {failureRedirect: '/auth/sign-in'}),
-        function (req, res) {
-            if(!req.user){
+        (req, res, next) => {
+            if (!req.user) {
+                return res.send('Something went wrong');
+            }
+
+            AuthService.createAuthToken(req.user)
+                .then((token) => res.redirect('/auth/token/' + token));
+        });
+
+    router.get('/facebook', passport.authenticate('facebook', {scope: ['public_profile', 'email', 'user_about_me']}));
+
+    router.get('/facebook/callback',
+        passport.authenticate('facebook', {failureRedirect: '/auth/sign-in'}),
+        (req, res, next) => {
+            if (!req.user) {
                 return res.send('Something went wrong');
             }
 

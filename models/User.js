@@ -4,6 +4,8 @@ module.exports = (mongoose) => {
         name: String,
         email: String,
         googleId: String,
+        facebookId: String,
+        profileUrl: String,
         date: {type: Date, default: Date.now()}
     });
 
