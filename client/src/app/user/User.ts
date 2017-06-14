@@ -1,5 +1,9 @@
 export class User {
-  // id: string;
+  _id?: string;
+  email: string;
+  googleId: string;
+  name: string;
+  date?: Date;
 
   constructor() {}
 }

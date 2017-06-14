@@ -4,13 +4,14 @@ import { WebSpeechComponent} from "./web-speech/web-speech.component";
 import {WebRecordComponent} from "./web-record/web-record.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
 import {SpeechComponent} from "./speech.component";
+import {UserCanActivate} from "../user/user.canActivate";
 
 export const speechRoutes: Routes = [
   {
     path: 'speech',
     component: SpeechComponent,
     data: { title: 'WebSpeech' },
-    canActivate: [],
+    canActivate: [UserCanActivate],
     children: [
       {
         path: 'record',
