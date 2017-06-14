@@ -10,3 +10,16 @@ services:
     command: npm run start.dev
     ports:
       - 3000:3000
+    links:
+      - mongo
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+
+  mongo.console:
+    image: mongo
+    links:
+      - mongo
+    command: mongo mongo/dev

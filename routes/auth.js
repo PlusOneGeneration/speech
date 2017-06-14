@@ -5,7 +5,7 @@ module.exports = (app) => {
     const passport = require('passport');
     const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-    // const SampleService = app.container.get('SampleService');
+    const UserService = app.container.get('UserService');
 
     //TODO @@@dr move conf to file conf
     passport.use(new GoogleStrategy({
@@ -14,11 +14,17 @@ module.exports = (app) => {
             callbackURL: "http://localhost:4200/api/auth/google/callback"
         },
         function (token, tokenSecret, profile, done) {
-            console.log('profile +>>>>>>', profile);
-            done(null, profile)
-            // User.findOrCreate({googleId: profile.id}, function (err, user) {
-            //     return done(err, user);
-            // });
+            UserService.getByEmail(profile.emails[0].value)
+                .then(
+                    (user) => {
+                        if (!user) {
+                            return UserService.createUserFromGoogle(profile)
+                                .then((user) => done(null, user));
+                        }
+
+                        return done(null, user);
+                    },
+                    (err) => done(err));
         }));
 
     passport.serializeUser(function (user, done) {
@@ -26,16 +32,14 @@ module.exports = (app) => {
     });
 
     passport.deserializeUser(function (obj, done) {
-        // @@ make model instead of hash/object
         done(null, obj);
     });
 
     router.get('/google', passport.authenticate('google', {scope: 'https://www.googleapis.com/auth/userinfo.email'}));
 
     router.get('/google/callback',
-        passport.authenticate('google', {failureRedirect: '/login'}),
+        passport.authenticate('google', {failureRedirect: '/auth/sign-in'}),
         function (req, res) {
-            console.log('USER =>>', req.user);
             res.redirect('/app/speech');
         });
 

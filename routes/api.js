@@ -4,6 +4,7 @@ module.exports = (app) => {
 
   router.use('/auth', require('./auth')(app));
   router.use('/files', require('./files')(app));
+  router.use('/users', require('./users')(app));
 
   return router;
 }
