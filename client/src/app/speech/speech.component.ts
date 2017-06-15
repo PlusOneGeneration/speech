@@ -5,6 +5,7 @@ import {WebSpeechComponent} from "./web-speech/web-speech.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
 import {Record} from "../record/Record";
 import {RecordService} from "../record/record.service";
+import {FileUploadService} from "../file-upload.service";
 
 @Component({
   selector: 'speech',
@@ -23,7 +24,8 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   @ViewChild('speech') speech: WebSpeechComponent | GoogleSpeechComponent | any;
 
   constructor(private mediaRecorderService: MediaRecorderService,
-              private recordService: RecordService) {
+              private recordService: RecordService,
+              private fileUploadService: FileUploadService) {
   }
 
   ngOnInit(): void {
@@ -83,10 +85,17 @@ export class SpeechComponent implements OnInit, AfterViewInit {
     this.record.speechType = 'web';
     this.record.transcription = this.speech.text;
 
-    this.recordService.create(this.record)
-      .subscribe((record) => {
-        console.log('record =>>', record);
-      });
+    // this.recordService.create(this.record)
+    //   .subscribe((record) => {
+    //     console.log('record =>>', record);
+    //   });
+
+    this.fileUploadService.sendFile(new File([this.recordRTC.getBlob()], 'test.wav'))
+        .subscribe((record) => {
+              console.log('record =>>', record);
+
+    });
+
 
   }
 

@@ -3,20 +3,18 @@ module.exports = (app) => {
     const router = Router();
 
     const RecordService = app.container.get('RecordService');
-    const FormService = app.container.get('FormService');
+    const FileUploadMulterService = app.container.get('FileUploadMulterService');
 
-    const recordForm = FormService.create(
-        FormService.field('title').trim().required(),
-        FormService.field('transcription').trim(),
-        FormService.field('speechType').trim()
-    );
-    // router.param('paramId', (id, req, res, next) => {
-    //    
-    // });
+    router.post('/', FileUploadMulterService.uploadMiddleware(), (req, res, next) => {
+        let record = {
+            title: req.body.title,
+            speechType:  req.body.speechType,
+            user: req.user.userId,
+            filePath: req.file.path,
+            transcription: req.body.transcription || ''
+        };
 
-    router.post('/', recordForm, (req, res, next) => {
-        req.form.user = req.user.userId;
-        RecordService.save(req.form)
+        RecordService.save(record)
             .then((record) => res.json(record))
             .catch((err) => next(err));
     });
