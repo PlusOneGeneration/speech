@@ -9,5 +9,6 @@ module.exports = (container) => {
 
     //Models
     container.add('User', require('../models/User'), ['Mongoose']);
+    container.add('Record', require('../models/Record'), ['Mongoose']);
 
 }
