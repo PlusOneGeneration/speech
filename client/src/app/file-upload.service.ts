@@ -9,7 +9,7 @@ export class FileUploadService {
   constructor(private http: Http) {
   }
 
-  sendForm(fields: [{ fieldValue: string | File, fieldName: string }]): Observable<any> {
+  sendForm(fields: { fieldValue: string | File, fieldName: string }[]): Observable<any> {
     let formData: FormData = new FormData();
 
     fields.forEach((field) => {

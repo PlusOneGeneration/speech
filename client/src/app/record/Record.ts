@@ -3,6 +3,7 @@ export class Record {
   title: string;
   transcription: string;
   filePath?: string;
+  file ?: File;
   speechType: string;
   date: Date;
 
