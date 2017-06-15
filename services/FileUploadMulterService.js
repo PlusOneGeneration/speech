@@ -1,30 +1,39 @@
 const multer = require('multer');
+const fs = require('fs');
+const moment = require('moment');
 
 module.exports = class FileUploadMulterService {
 
-  constructor(fileStoreConf) {
-    this.fileStoreConf = fileStoreConf;
-  }
+    constructor(fileStoreConf) {
+        this.fileStoreConf = fileStoreConf;
+    }
 
-  getStorage() {
-    let storage = multer.diskStorage({
-      destination: (req, file, cb) => cb(null, this.fileStoreConf.dir),
-      filename: (req, file, cb) => cb(null, `${file.fieldname}-${Date.now()}.${this.fileStoreConf.fileExtension}`)
-    });
+    getStorage() {
+        let storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                let path = `${this.fileStoreConf.dir}/${req.user.userId}/${moment().format('YYYY-MM-DD')}`;
 
-    return storage;
-  }
+                fs.stat(path, (err, stats) => {
+                    if (stats && stats.isDirectory()) {
+                        cb(null, path)
+                    } else {
+                        fs.mkdir(path, 0o777, (err) => err ? cb(err) : cb(null, path));
+                    }
+                });
+            },
+            filename: (req, file, cb) => cb(null, `${this.fileStoreConf.fileNameFormat}.${this.fileStoreConf.fileExtension}`)
+        });
 
-  getMulter() {
-    return multer({storage: this.getStorage()})
-  }
+        return storage;
+    }
 
-  uploadMiddleware(fileField = 'file') {
-    let multer = this.getMulter();
+    getMulter() {
+        return multer({storage: this.getStorage()})
+    }
 
-    return (req, res, next) => multer.single(fileField)(req, res, next);
-  }
+    uploadMiddleware(fileField = 'file') {
+        let multer = this.getMulter();
 
-  //TODO @@@dr implement it
-  removeFile(){}
+        return (req, res, next) => multer.single(fileField)(req, res, next);
+    }
 }

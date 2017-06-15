@@ -1,10 +1,13 @@
+const moment = require('moment');
+
 module.exports = {
     port: 3000,
     mongo: {
         url: 'mongodb://mongo/dev'
     },
     fileStore: {
-        dir: './resources/',
+        dir: './resources',
+        fileNameFormat: `record-${moment().format('YYYY-MM-DD HH:mm:ss')}`,
         fileExtension: 'wav',
     },
     jwtConfig: {
