@@ -11,15 +11,24 @@ export class AuthService {
               private userTokenService: UserTokenService) {
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return Observable.create((observer) => {
-      this.userService
-        .me()
-        .subscribe((user) => {
-          return observer.next(user ? true : false);
-        });
+  isLoggedIn(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.userService.me()
+        .then((user) => resolve(user ? true : false))
+        .catch((err) => reject(err));
     });
   }
+
+  // isLoggedIn(): Observable<boolean> {
+  //   return Observable.create((observer) => {
+  //     // this.userService
+  //     //   .me()
+  //     //   .subscribe((user) => {
+  //     //     return observer.next(user ? true : false);
+  //         return observer.next(true);
+  //       // });
+  //   });
+  // }
 
   signOut(): Observable<boolean> {
     return Observable.create((observer) => {

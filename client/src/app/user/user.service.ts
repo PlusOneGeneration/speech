@@ -11,22 +11,21 @@ export class UserService {
   constructor(private userResource: UserResource) {
   }
 
-  me(): Observable<User> {
-    if (this.user$.getValue()) {
-      return this.user$;
-    } else {
-      return Observable.create(
-        (observer) => {
-          this.getMe()
-            .subscribe((user) => {
-                this.user$.next(user)
-                observer.next(user);
-              },
-              (error) => observer.error(error)
-            );
-
-        });
-    }
+  me(): Promise<User> {
+    return new Promise<User>((resolve, reject) => {
+      if (this.user$.getValue()) {
+        resolve(this.user$.getValue());
+      } else {
+        this.getMe()
+          .subscribe(
+            (user) => {
+              this.user$.next(user);
+              resolve(user);
+            },
+            (error) => reject(error)
+          );
+      }
+    });
   }
 
   getMe(): Observable<User> {
