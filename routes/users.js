@@ -4,6 +4,7 @@ module.exports = (app) => {
 
     const UserService = app.container.get('UserService');
     const AuthService = app.container.get('AuthService');
+    const RecordService = app.container.get('RecordService');
 
     router.get('/me', (req, res, next) => {
         UserService.getById(req.user.userId)
@@ -22,18 +23,12 @@ module.exports = (app) => {
                 res.json(user);
             })
     });
-    //
-    // router.post('/', (req, res, next) => {
-    //
-    // });
-    //
-    // router.put('/', (req, res, next) => {
-    //
-    // });
-    //
-    // router.delete('/', (req, res, next) => {
-    //
-    // });
+
+    router.get('/:userId/records', (req, res, next) => {
+        RecordService.getByUserId(req.user.userId)
+            .then((records) => res.json(records))
+            .catch((err) => next(err));
+    });
 
     return router;
 }

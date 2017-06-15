@@ -3,7 +3,7 @@ module.exports = (mongoose) => {
     const recordSchema = new Schema({
         title: String,
         user: {type: Schema.Types.ObjectId, ref: 'User'},
-        description: String,
+        transcription: String,
         filePath: String,
         speechType: String,
         date: {type: Date, default: Date.now()}

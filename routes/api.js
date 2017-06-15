@@ -6,6 +6,7 @@ module.exports = (app) => {
     router.use('/auth', require('./auth')(app));
     router.use('/files', AuthService.isAuthenticated(), require('./files')(app));
     router.use('/users', AuthService.isAuthenticated(), require('./users')(app));
+    router.use('/records', AuthService.isAuthenticated(), require('./records')(app));
 
     return router;
 }
