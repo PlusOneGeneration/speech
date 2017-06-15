@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {FileUploader, FileItem} from 'ng2-file-upload';
-import {environment} from '../../../environments/environment'
+import {FileUploadService} from "../../file-upload.service";
 
 @Component({
   selector: 'google-speech',
@@ -10,25 +9,20 @@ export class GoogleSpeechComponent {
   text: string = '';
   loading: boolean = false;
 
-  uploader: FileUploader = new FileUploader({url: environment.fileUploadUrl});
+  constructor(private fileUploadService: FileUploadService) {}
 
-  constructor() {
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      var responsePath = JSON.parse(response);
-      this.text = responsePath.transcription;
-      this.loading = false;
-    };
-  }
-
-  start():void {
+  start(): void {
 
   }
 
-  stop(blob: Blob):void {
+  stop(blob: Blob): void {
     this.loading = true;
     let file = new File([blob], 'test.wav');
-    let fileItem = new FileItem(this.uploader, file, this.uploader.options);
-    this.uploader.queue.push(fileItem);
-    this.uploader.uploadAll();
+
+    this.fileUploadService.upload(file)
+      .subscribe((response) => {
+        this.text = response.transcription;
+        this.loading = false;
+      });
   }
 }

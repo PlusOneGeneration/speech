@@ -14,6 +14,7 @@ import {UserTokenService} from "./user/services/user-token.service";
 import {Http, RequestOptions, XHRBackend} from "@angular/http";
 import {HttpService} from "./http.service";
 import {RecordModule} from "./record/record.module";
+import {FileUploadService} from "./file-upload.service";
 
 export function httpUseFactory(backend: XHRBackend, defaultOptions: RequestOptions, userTokenService: UserTokenService) {
   return new HttpService(backend, defaultOptions, userTokenService);
@@ -45,7 +46,8 @@ export function httpUseFactory(backend: XHRBackend, defaultOptions: RequestOptio
     },
     //TODO @@@dr check we need it or not
     WebSpeechApiService,
-    StorageService
+    StorageService,
+    FileUploadService
   ],
   bootstrap: [AppComponent]
 })

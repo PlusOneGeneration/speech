@@ -26,7 +26,6 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "fluent-ffmpeg": "^2.1.2",
-    "ng2-file-upload": "^1.2.1",
     "ngx-resource": "^3.0.3",
     "now-logs": "0.0.7",
     "recordrtc": "git+https://github.com/muaz-khan/RecordRTC.git",
