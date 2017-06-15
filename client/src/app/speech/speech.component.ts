@@ -57,8 +57,10 @@ export class SpeechComponent implements OnInit, AfterViewInit {
         this.audio.src = result.audioVideoWebMURL;
 
         if (this.selectedSpeech == 'webSpeech' && this.speech instanceof WebSpeechComponent) {
+          this.record.speechType = 'webSpeech';
           this.speech.stop();
         } else if (this.selectedSpeech == 'googleSpeech' && this.speech instanceof GoogleSpeechComponent) {
+          this.record.speechType = 'googleSpeech';
           this.speech.stop(this.recordRTC.getBlob());
         }
 
@@ -81,7 +83,6 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   store(): void {
     this.record.transcription = this.speech.text;
     this.record.title = this.record.transcription || Date.now().toString();
-    this.record.speechType = 'web';
     this.record.file = new File([this.recordRTC.getBlob()], `${Date.now()}.wav`);
 
     this.recordService.create(this.record)
