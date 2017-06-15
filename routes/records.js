@@ -3,6 +3,7 @@ module.exports = (app) => {
     const router = Router();
 
     const RecordService = app.container.get('RecordService');
+    const FormService = app.container.get('FormService');
 
     const recordForm = FormService.create(
         FormService.field('title').trim().required(),
