@@ -13,6 +13,7 @@ import {ResourceModule} from "ngx-resource";
 import {UserTokenService} from "./user/services/user-token.service";
 import {Http, RequestOptions, XHRBackend} from "@angular/http";
 import {HttpService} from "./http.service";
+import {RecordModule} from "./record/record.module";
 
 export function httpUseFactory(backend: XHRBackend, defaultOptions: RequestOptions, userTokenService: UserTokenService) {
   return new HttpService(backend, defaultOptions, userTokenService);
@@ -33,7 +34,8 @@ export function httpUseFactory(backend: XHRBackend, defaultOptions: RequestOptio
     ResourceModule.forRoot(),
     SpeechModule,
     AuthModule,
-    UserModule
+    UserModule,
+    RecordModule
   ],
   providers: [
     {

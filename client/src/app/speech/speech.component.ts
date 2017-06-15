@@ -3,6 +3,8 @@ import {MediaRecorderService} from "./services/media-recorder.service";
 
 import {WebSpeechComponent} from "./web-speech/web-speech.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
+import {Record} from "../record/Record";
+import {RecordService} from "../record/record.service";
 
 @Component({
   selector: 'speech',
@@ -15,11 +17,13 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   selectedSpeech: string;
   recordRTC: any;
   stream: any;
+  record: Record = new Record;
 
   @ViewChild('audio') audioElement;
   @ViewChild('speech') speech: WebSpeechComponent | GoogleSpeechComponent | any;
 
-  constructor(private mediaRecorderService: MediaRecorderService) {
+  constructor(private mediaRecorderService: MediaRecorderService,
+              private recordService: RecordService) {
   }
 
   ngOnInit(): void {
@@ -54,7 +58,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
 
         if (this.selectedSpeech == 'webSpeech' && this.speech instanceof WebSpeechComponent) {
           this.speech.stop();
-        }else if (this.selectedSpeech == 'googleSpeech' && this.speech instanceof GoogleSpeechComponent) {
+        } else if (this.selectedSpeech == 'googleSpeech' && this.speech instanceof GoogleSpeechComponent) {
           this.speech.stop(this.recordRTC.getBlob());
         }
 
@@ -72,6 +76,18 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   speechChanged($event): void {
     this.isRecordFinish = false;
     this.isRecording = false;
+  }
+
+  store(): void {
+    this.record.title = 'test';
+    this.record.speechType = 'web';
+    this.record.transcription = this.speech.text;
+
+    this.recordService.create(this.record)
+      .subscribe((record) => {
+        console.log('record =>>', record);
+      });
+
   }
 
 }
