@@ -19,7 +19,6 @@ export class MediaRecorderService {
             desiredSampRate: 16000,
             numberOfAudioChannels: 1
           });
-          console.log('recordRTC =>>>', recordRTC);
           recordRTC.startRecording();
 
           this.zone.run(() => observer.next({recordRTC: recordRTC, stream: mediaStream}));
@@ -28,7 +27,6 @@ export class MediaRecorderService {
     });
   }
 
-  // recordStop(recordRTC: RecordRTC, stream: MediaStream): Observable<string> {
   //TODO @@@dr need to check send recordRTC or not
   recordStop(recordRTC: RecordRTC, stream: MediaStream): Observable<any> {
     return Observable.create((observer) => {
@@ -37,7 +35,6 @@ export class MediaRecorderService {
         this.zone.run(() => observer.next({recordRTC: recordRTC, audioVideoWebMURL: audioVideoWebMURL}));
 
         stream.getAudioTracks().forEach(track => track.stop());
-        stream.getVideoTracks().forEach(track => track.stop());
       });
     });
   }

@@ -23,21 +23,20 @@ export class FileUploadService {
     return this.send(formData);
   }
 
-  sendFile(file: File, fileField: string = 'file'): Observable<any> {
+  sendFile(file: File, fileField: string = 'file', url?: string): Observable<any> {
     let formData: FormData = new FormData();
     formData.append(fileField, file, file.name);
-    formData.append('title', 'test');
 
-    return this.send(formData);
+    return this.send(formData, url);
   }
 
-  send(formData: FormData): Observable<any> {
+  //TODO @@@dr rethink url in params
+  send(formData: FormData, url: string = '/api/records'): Observable<any> {
     return Observable.create((observer) => {
       let headers = this.setHeaders([{name: 'Accept', value: 'application/json'}]);
       let options = new RequestOptions({headers: headers});
 
-      this.http.post(`/api/records`, formData, options)
-      // this.http.post(`${environment.fileUploadUrl}`, formData, options)
+      this.http.post(url, formData, options)
         .map(res => res.json())
         .catch(error => observer.error(error))
         .subscribe(

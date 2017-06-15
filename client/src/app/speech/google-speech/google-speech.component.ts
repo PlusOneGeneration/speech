@@ -19,7 +19,7 @@ export class GoogleSpeechComponent {
     this.loading = true;
     let file = new File([blob], 'test.wav');
 
-    this.fileUploadService.sendFile(file)
+    this.fileUploadService.sendFile(file, 'file', '/api/files')
       .subscribe((response) => {
         this.text = response.transcription;
         this.loading = false;
