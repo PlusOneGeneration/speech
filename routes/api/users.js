@@ -5,23 +5,13 @@ module.exports = (app) => {
     const UserService = app.container.get('UserService');
     const AuthService = app.container.get('AuthService');
     const RecordService = app.container.get('RecordService');
+    const _ = require('lodash');
 
     router.get('/me', (req, res, next) => {
         UserService.getById(req.user.userId)
-            .then((user) => req.user = user)
-            .then(() => res.json(req.user))
+            .then((user) => _.omit(user.toJSON(), ['facebookData']))
+            .then((user) => res.json(user))
             .catch((err) => next(err));
-    });
-
-    router.get('/:userId', (req, res, next) => {
-        UserService.getByEmail(req.params.userId)
-            .then((user) => {
-                if (!user) {
-                    return res.status(404).send();
-                }
-
-                res.json(user);
-            })
     });
 
     router.get('/:userId/records', (req, res, next) => {

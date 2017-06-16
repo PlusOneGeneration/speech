@@ -17,17 +17,11 @@ module.exports = (app) => {
             callbackURL: `${host}/api/auth/google/callback`
         },
         function (token, tokenSecret, profile, done) {
-            UserService.getByEmail(profile.emails[0].value)
+            UserService.updateUserFromGoogle(profile)
                 .then(
-                    (user) => {
-                        if (!user) {
-                            return UserService.createUserFromGoogle(profile)
-                                .then((user) => done(null, user));
-                        }
-
-                        return done(null, user);
-                    },
-                    (err) => done(err));
+                    (user) => done(null, user),
+                    (err) => done(err)
+                );
         }));
 
     passport.use(new FacebookStrategy({
@@ -37,17 +31,25 @@ module.exports = (app) => {
             profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
         },
         function (accessToken, refreshToken, profile, done) {
-            UserService.getByEmail(profile.emails[0].value)
-                .then(
-                    (user) => {
-                        if (!user) {
-                            return UserService.createUserFromFacebook(profile)
-                                .then((user) => done(null, user));
-                        }
+            if (profile.emails && profile.emails.length) {
+                return UserService.getByEmail(profile.emails[0].value)
+                    .then(
+                        (user) => {
+                            return UserService.updateUserFromFacebook(profile)
+                                .then(
+                                    (user) => done(null, user),
+                                    (err) => done(err)
+                                );
+                        },
+                        (err) => done(err));
+            } else {
+                return UserService.createUserFromFacebook(profile)
+                    .then(
+                        (user) => done(null, user),
+                        (err) => done(err)
+                    );
+            }
 
-                        return done(null, user);
-                    },
-                    (err) => done(err));
         }
     ));
 

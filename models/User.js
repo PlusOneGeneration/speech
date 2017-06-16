@@ -3,10 +3,12 @@ module.exports = (mongoose) => {
     const userSchema = new Schema({
         name: String,
         email: String,
+        emails: Object,
         googleId: String,
         facebookId: String,
         profileUrl: String,
-        date: {type: Date, default: Date.now()}
+        date: {type: Date, default: Date.now()},
+        facebookData: Object
     });
 
     return mongoose.model('User', userSchema);

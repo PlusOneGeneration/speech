@@ -1,9 +1,11 @@
+const _ = require('lodash');
+
 module.exports = class UserService {
     constructor(User) {
         this.User = User;
     }
 
-    create(params){
+    create(params) {
         return this.User.create(params);
     }
 
@@ -15,24 +17,58 @@ module.exports = class UserService {
         return this.User.findOne({email: email});
     }
 
-    createUserFromGoogle(params) {
-        let userData = {
-            name: params.displayName,
-            email: params.emails[0].value,
-            googleId: params.id
-        };
+    getByFacebookId(id) {
+        return this.User.findOne({facebookId: id});
+    }
 
-        return this.create(userData);
+    createUserFromGoogle(params) {
+        return this.create(this.getGoogleFields(params));
+    }
+
+    updateUserFromGoogle(params){
+        return this.getByEmail(params.emails[0].value)
+            .then((user) => {
+                if (!user) {
+                    return this.createUserFromGoogle(params);
+                }
+
+                _.assign(user, this.getGoogleFields(params));
+                return user.save();
+            });
     }
 
     createUserFromFacebook(params) {
-        let userData = {
-            name: params.name.familyName + ' ' + params.name.givenName,
-            email: params.emails[0].value,
-            facebookId: params.id,
-            profileUrl: params.profileUrl
-        };
+        return this.create(this.getFacebookFields(params));
+    }
 
-        return this.create(userData);
+    updateUserFromFacebook(params) {
+        return this.getByFacebookId(params.id)
+            .then((user) => {
+                if (!user) {
+                    return this.createUserFromFacebook(params)
+                }
+
+                _.assign(user, this.getFacebookFields(params))
+                return user.save()
+            });
+    }
+
+    getFacebookFields(params) {
+        return {
+            name: params.name.familyName + ' ' + params.name.givenName,
+            email: params._json.email || '',
+            emails: params.emails,
+            facebookId: params.id,
+            profileUrl: params.profileUrl,
+            facebookData: params._json
+        };
+    }
+
+    getGoogleFields(params) {
+        return {
+            name: params.displayName,
+            email: params.emails[0].value,
+            googleId: params.id
+        }
     }
 }
