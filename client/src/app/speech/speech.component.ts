@@ -19,6 +19,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   recordRTC: any;
   stream: any;
   record: Record = new Record;
+  webRTCisSupported: boolean;
 
   @ViewChild('audio') audioElement;
   @ViewChild('speech') speech: WebSpeechComponent | GoogleSpeechComponent | any;
@@ -28,6 +29,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.webRTCisSupported = DetectRTC.isWebRTCSupported;
   }
 
   ngAfterViewInit() {
