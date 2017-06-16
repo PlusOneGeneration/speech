@@ -11,6 +11,10 @@ export const recordRoutes: Routes = [
       {
         path: 'history',
         component: RecordsHistoryComponent,
+      },
+      {
+        path: 'history/page/:page',
+        component: RecordsHistoryComponent,
       }
     ]
   }

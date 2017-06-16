@@ -8,6 +8,7 @@ import { RecordComponent } from './record/record.component';
 import { RecordService } from './record.service';
 import {RecordResource} from "./record.resource";
 import {RecordsHistoryComponent} from "./records-history/records-history.component";
+import {UiModule} from "../ui/ui.module";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {RecordsHistoryComponent} from "./records-history/records-history.compone
   imports: [
     BrowserModule,
     RouterModule.forRoot([]),
-    RecordRoutingModule
+    RecordRoutingModule,
+    UiModule
   ],
   providers: [
     RecordResource,

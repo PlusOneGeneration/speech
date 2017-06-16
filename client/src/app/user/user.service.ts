@@ -34,10 +34,13 @@ export class UserService {
       .$observable
   }
 
-  myRecords(): Observable<Record[]> {
-    let userId = this.user$.getValue()._id;
+  getUserRecords(user: User, limit: number = 10, skip: number = 0): Observable<Record[]> {
+    return this.userResource.userRecords({userId: user._id, limit: limit, skip: skip})
+      .$observable;
+  }
 
-    return this.userResource.userRecords({userId: userId})
+  getTotalUserRecords(user: User): Observable<{total:number}> {
+    return this.userResource.getTotalUserRecords({userId: user._id})
       .$observable;
   }
 }

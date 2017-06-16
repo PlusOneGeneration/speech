@@ -23,4 +23,11 @@ export class UserResource extends Resource {
   })
   userRecords: ResourceMethod<any, Record[]>;
 
+
+  @ResourceAction({
+    method: RequestMethod.Get,
+    path: '/{!userId}/records/total'
+  })
+  getTotalUserRecords: ResourceMethod<any, {total:number}>;
+
 }

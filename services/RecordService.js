@@ -21,15 +21,20 @@ module.exports = class RecordService {
         return this.Record.create(record);
     }
 
-    getByUserId(userId) {
+    getByUserId(userId, options = {limit: 10, skip: 0}) {
         return this.Record
             .find({user: userId})
             .populate('user')
+            .skip(parseInt(options.skip))
+            .limit(parseInt(options.limit))
             .sort({date: -1})
             .exec();
     }
 
-    prepareFilePath(file) {
+    getTotalByUserId(userId) {
+        return this.Record
+            .find({user: userId})
+            .count();
     }
 
     getRecordFileByFileId(fileId){

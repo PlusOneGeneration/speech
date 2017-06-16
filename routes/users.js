@@ -25,8 +25,14 @@ module.exports = (app) => {
     });
 
     router.get('/:userId/records', (req, res, next) => {
-        RecordService.getByUserId(req.user.userId)
+        RecordService.getByUserId(req.user.userId, {limit: req.query.limit || 10, skip: req.query.skip || 0})
             .then((records) => res.json(records))
+            .catch((err) => next(err));
+    });
+
+    router.get('/:userId/records/total', (req, res, next) => {
+        RecordService.getTotalByUserId(req.user.userId)
+            .then((recordsNumber) => res.json({total: recordsNumber}))
             .catch((err) => next(err));
     });
 
