@@ -83,11 +83,10 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   store(): void {
     this.record.transcription = this.speech.text;
     this.record.title = this.record.transcription || Date.now().toString();
-    this.record.file = new File([this.recordRTC.getBlob()], `${Date.now()}.wav`);
+    this.record.tmpFile = new File([this.recordRTC.getBlob()], `${Date.now()}.wav`);
 
     this.recordService.create(this.record)
       .subscribe((record) => {
-        console.log('record =>>', record);
         this.record = new Record;
       });
 

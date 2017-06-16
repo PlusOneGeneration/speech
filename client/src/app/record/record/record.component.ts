@@ -1,27 +1,32 @@
-import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Record} from "../Record";
+import {RecordService} from "../record.service";
+import {environment} from '../../../environments/environment'
 
 @Component({
   selector: 'record',
   templateUrl: './record.component.html'
 })
 
-export class RecordComponent implements OnInit, OnChanges{
+export class RecordComponent implements OnInit {
   @Input() record: Record;
 
   @ViewChild('audio') audioElement;
 
 
-  // constructor(private recordService: RecordService, private route: ActivatedRoute) {}
-
-  ngOnInit(): void {
-  //   this.route.data
-  //   .map((data: { record: Record }) => data.record)
-  //   .subscribe((record: Record) => console.log(record));
+  constructor(private recordService: RecordService) {
   }
 
-  ngOnChanges(changes: any) {
-    console.log(changes.record.currentValue);
+  ngOnInit(): void {
+    this.audioElement.nativeElement.onplay = this.onPlay;
+
+    if (this.record.file) {
+      this.audioElement.src = `${environment.host}/api/files/${this.record.file.hash}`
+    }
+  }
+
+  onPlay(): void {
+    console.log('on play');
   }
 
 }
