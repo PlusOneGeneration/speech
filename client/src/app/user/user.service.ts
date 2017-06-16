@@ -3,6 +3,7 @@ import {UserResource} from "./user.resource";
 import {Observable} from "rxjs/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {User} from "./User";
+import {Record} from "../record/Record";
 
 @Injectable()
 export class UserService {
@@ -31,5 +32,12 @@ export class UserService {
   getMe(): Observable<User> {
     return this.userResource.getMe()
       .$observable
+  }
+
+  myRecords(): Observable<Record[]> {
+    let userId = this.user$.getValue()._id;
+
+    return this.userResource.userRecords({userId: userId})
+      .$observable;
   }
 }

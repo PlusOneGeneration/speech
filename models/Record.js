@@ -4,7 +4,7 @@ module.exports = (mongoose) => {
         title: String,
         user: {type: Schema.Types.ObjectId, ref: 'User'},
         transcription: String,
-        filePath: String,
+        file: Object,
         speechType: String,
         date: {type: Date, default: Date.now()}
     });

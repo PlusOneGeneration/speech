@@ -5,6 +5,7 @@ import {authRoutes} from "./auth/auth.routing.module";
 import {userRoutes} from "./user/user.routing.module";
 import {UserResolver} from "./user/user.resolver";
 import {UserCanActivate} from "./user/user.canActivate";
+import {recordRoutes} from "./record/record.routing.module";
 
 const routes: Routes = [
   {path: '', redirectTo: 'app/speech', pathMatch: 'full'},
@@ -18,7 +19,8 @@ const routes: Routes = [
     },
     children: [
       ...speechRoutes,
-      ...userRoutes
+      ...userRoutes,
+      ...recordRoutes
     ]
   },
   {path: '**', redirectTo: 'app', pathMatch: 'full'}

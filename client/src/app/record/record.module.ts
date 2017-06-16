@@ -4,14 +4,16 @@ import { NgModule } from '@angular/core';
 import { RecordRoutingModule} from "./record.routing.module";
 import {RouterModule} from "@angular/router";
 
-import { RecordComponent } from './record.component';
+import { RecordComponent } from './record/record.component';
 import { RecordService } from './record.service';
 import {RecordResource} from "./record.resource";
+import {RecordsHistoryComponent} from "./records-history/records-history.component";
 
 
 @NgModule({
   declarations: [
-    RecordComponent
+    RecordComponent,
+    RecordsHistoryComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Resource, ResourceAction, ResourceParams} from "ngx-resource";
 import {RequestMethod} from "@angular/http";
 import {ResourceMethod, ResourceMethodStrict} from 'ngx-resource/src/Interfaces';
+import {Record} from "../record/Record";
 
 @Injectable()
 @ResourceParams({
@@ -14,5 +15,12 @@ export class UserResource extends Resource {
     path: '/me'
   })
   getMe: ResourceMethod<any, any>;
+
+  @ResourceAction({
+    method: RequestMethod.Get,
+    path: '/{!userId}/records',
+    isArray: true
+  })
+  userRecords: ResourceMethod<any, Record[]>;
 
 }

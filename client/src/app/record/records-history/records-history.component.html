@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-2 col-sm-offset-0 col-md-4 col-sm-6">
+      <h3>Records History</h3>
+      <ul *ngIf="records.length" class="list-unstyled">
+        <li  *ngFor="let record of records">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{record.title}}</h3>
+            </div>
+            <div class="panel-body">
+              <div>Date: {{record.date}}</div>
+              <button class="btn btn-default" (click)="showRecord(record)">Show</button>
+              <button class="btn btn-default" (click)="showRecord(record)">Delete</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div *ngIf="!records.length">No records yet</div>
+    </div>
+    <div class="col-md-offset-2 col-sm-offset-0 col-md-4 col-sm-6">
+      <h3>Selected Record</h3>
+      <record *ngIf="selectedRecord" [record]="selectedRecord"></record>
+
+    </div>
+  </div>
+</div>
+

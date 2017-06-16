@@ -1,20 +1,17 @@
 import { Routes, RouterModule} from "@angular/router";
 import { NgModule} from "@angular/core";
-import { RecordComponent} from "./record.component";
+import { RecordComponent} from "./record/record.component";
+import {RecordsHistoryComponent} from "./records-history/records-history.component";
 
 export const recordRoutes: Routes = [
   {
     path: 'record',
-    component: RecordComponent,
-    data: { title: 'Record' },
+    // component: RecordComponent,
     children: [
-      // {
-      //   path: ':recordId',
-      //   component: RecordComponent,
-      //   resolve: {
-      //     record: RecordResolver
-      //   }
-      // }
+      {
+        path: 'history',
+        component: RecordsHistoryComponent,
+      }
     ]
   }
   // ,
