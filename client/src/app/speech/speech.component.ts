@@ -5,6 +5,7 @@ import {WebSpeechComponent} from "./web-speech/web-speech.component";
 import {GoogleSpeechComponent} from "./google-speech/google-speech.component";
 import {Record} from "../record/Record";
 import {RecordService} from "../record/record.service";
+import * as DetectRTC from "detectrtc/DetectRTC.js";
 
 @Component({
   selector: 'speech',
@@ -89,10 +90,6 @@ export class SpeechComponent implements OnInit, AfterViewInit {
       .subscribe((record) => {
         this.record = new Record;
       });
-
-
-
-
   }
 
 }
