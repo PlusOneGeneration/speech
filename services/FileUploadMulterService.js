@@ -11,15 +11,14 @@ module.exports = class FileUploadMulterService {
     getStorage() {
         let storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                let path = `${this.fileStoreConf.dir}/${req.user.userId}/${moment().format('YYYY-MM-DD')}`;
+                let pathUserPath = `${this.fileStoreConf.dir}/${req.user.userId}`;
+                let pathWorkingDirectory = `${this.fileStoreConf.dir}/${req.user.userId}/${moment().format('YYYY-MM-DD')}`;
 
-                fs.stat(path, (err, stats) => {
-                    if (stats && stats.isDirectory()) {
-                        cb(null, path)
-                    } else {
-                        fs.mkdir(path, 0o777, (err) => err ? cb(err) : cb(null, path));
-                    }
-                });
+                this.checkPath(pathUserPath)
+                    .then((path) => this.checkPath(pathWorkingDirectory))
+                    .then((path) => cb(null, path))
+                    .catch((err) => cb(err));
+
             },
             filename: (req, file, cb) => cb(null, `${this.fileStoreConf.fileNameFormat}.${this.fileStoreConf.fileExtension}`)
         });
@@ -35,5 +34,17 @@ module.exports = class FileUploadMulterService {
         let multer = this.getMulter();
 
         return (req, res, next) => multer.single(fileField)(req, res, next);
+    }
+
+    checkPath(path) {
+        return new Promise((resolve, reject) => {
+            fs.stat(path, (err, stats) => {
+                if (stats && stats.isDirectory()) {
+                    resolve(path)
+                } else {
+                    fs.mkdir(path, 0o777, (err) => err ? reject(err) : resolve(path));
+                }
+            })
+        });
     }
 }

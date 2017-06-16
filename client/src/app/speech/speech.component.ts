@@ -67,6 +67,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
           this.speech.stop(this.recordRTC.getBlob());
         }
 
+        this.store();
         this.isRecordFinish = true;
       });
   }
@@ -83,14 +84,23 @@ export class SpeechComponent implements OnInit, AfterViewInit {
     this.isRecording = false;
   }
 
-  store(): void {
-    this.record.transcription = this.speech.text;
-    this.record.title = this.record.transcription || Date.now().toString();
-    this.record.tmpFile = new File([this.recordRTC.getBlob()], `${Date.now()}.wav`);
+  store(storeFile: boolean = false): void {
+    this.speech.text$
+      .subscribe((text) => {
+        if (text) {
+          this.record.transcription = text;
+          this.record.title = this.record.transcription || Date.now().toString();
 
-    this.recordService.create(this.record)
-      .subscribe((record) => {
-        this.record = new Record;
+          if (storeFile) {
+            this.record.tmpFile = new File([this.recordRTC.getBlob()], `${Date.now()}.wav`);
+          }
+
+          this.recordService.create(this.record)
+            .subscribe((record) => {
+              this.record = new Record;
+            });
+        }
+
       });
   }
 

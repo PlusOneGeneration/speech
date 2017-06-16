@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
     {{record.transcription}}
-    <audio #audio controls src="{{audioElement.src}}"></audio>
+    <audio #audio controls [ngClass]="{'hide-player': !record.file}" src="{{audioElement.src}}"></audio>
   </div>
 </div>
 

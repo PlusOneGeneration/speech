@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {WebSpeechApiService} from "../services/web-speech-api.service";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
   selector: 'web-speech',
@@ -7,6 +8,7 @@ import {WebSpeechApiService} from "../services/web-speech-api.service";
 })
 export class WebSpeechComponent {
   text: string = '';
+  text$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private webSpeechApiService: WebSpeechApiService) {
   }
@@ -18,6 +20,7 @@ export class WebSpeechComponent {
         (resultText) => {
           if (resultText) {
             this.text = resultText;
+            this.text$.next(resultText);
           }
         },
         (error) => console.error(error)
