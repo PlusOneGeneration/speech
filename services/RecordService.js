@@ -11,14 +11,14 @@ module.exports = class RecordService {
         }
 
         let record = {
-            title: data.title,
+            title: data.title.substring(0, 20) + '...',
             speechType:  data.speechType,
             user: user.userId,
             transcription: data.transcription || '',
             file: file || null
         };
         
-        return this.Record.create(data);
+        return this.Record.create(record);
     }
 
     getByUserId(userId) {
