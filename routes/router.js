@@ -3,6 +3,7 @@ module.exports = (app) => {
     const router = Router();
 
     router.use('/api', require('./api')(app));
+    router.use('/files', require('./files')(app));
 
     return router;
 }

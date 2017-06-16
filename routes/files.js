@@ -6,12 +6,6 @@ module.exports = (app) => {
     const FileUploadMulterService = app.container.get('FileUploadMulterService');
     const RecordService = app.container.get('RecordService');
 
-    router.post('/', FileUploadMulterService.uploadMiddleware(), (req, res, next) => {
-        GoogleWebSpeechService.uploadFileToSpeech(req.file.path)
-            .then((resultText) => res.json({transcription: resultText}))
-            .catch((err) => next(err));
-    });
-
     router.get('/:fileId', (req, res, next) => {
         RecordService.getRecordFileByFileId(req.params.fileId)
             .then((record) => {

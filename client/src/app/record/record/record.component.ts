@@ -21,7 +21,7 @@ export class RecordComponent implements OnInit {
     this.audioElement.nativeElement.onplay = this.onPlay;
 
     if (this.record.file) {
-      this.audioElement.src = `${environment.host}/api/files/${this.record.file.hash}`
+      this.audioElement.src = `${environment.host}/files/${this.record.file.hash}`
     }
   }
 

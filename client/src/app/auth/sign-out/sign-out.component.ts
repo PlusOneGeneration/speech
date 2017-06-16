@@ -12,7 +12,13 @@ export class SignOutComponent {
   }
 
   signOut() {
-    this.authService.signOut()
-      .subscribe(() => this.router.navigate(['auth', 'sign-in']));
+    this.authService
+      .signOut()
+      .then(() => {
+        this.router.navigate(['auth', 'sign-in'])
+      })
+      .catch((err) => {
+        this.router.navigate(['auth', 'sign-in'])
+      });
   }
 }

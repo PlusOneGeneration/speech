@@ -19,23 +19,17 @@ export class AuthService {
     });
   }
 
-  // isLoggedIn(): Observable<boolean> {
-  //   return Observable.create((observer) => {
-  //     // this.userService
-  //     //   .me()
-  //     //   .subscribe((user) => {
-  //     //     return observer.next(user ? true : false);
-  //         return observer.next(true);
-  //       // });
-  //   });
-  // }
+  signOut(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      try {
+        this.userService.user$.next(null);
+        this.userTokenService.removeToken();
+        resolve(true);
 
-  signOut(): Observable<boolean> {
-    return Observable.create((observer) => {
-      this.userService.user$.next(null);
-      this.userTokenService.removeToken();
+      } catch (err) {
+        reject(err);
+      }
 
-      observer.next(true);
     });
   }
 }
