@@ -10,7 +10,7 @@
                 <h3 class="panel-title">{{record.title}}</h3>
               </div>
               <div class="panel-body">
-                <div>Date: {{record.date}}</div>
+                <div>Date: {{moment(record.date).format('YYYY-MM-DD HH:mm:ss')}}</div>
                 <button class="btn btn-default" (click)="showRecord(record)">Show</button>
               </div>
             </div>

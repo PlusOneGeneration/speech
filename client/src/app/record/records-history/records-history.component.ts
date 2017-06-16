@@ -3,6 +3,7 @@ import {Record} from "../Record";
 import {RecordService} from "../record.service";
 import {UserService} from "../../user/user.service";
 import {ActivatedRoute} from "@angular/router";
+import * as moment from "moment";
 
 @Component({
   selector: 'records-history',
@@ -17,6 +18,7 @@ export class RecordsHistoryComponent implements OnInit {
   recordsPerPage: number = 10;
   pagesArray: any[];
   loading: boolean = false;
+  moment:any = moment;
 
   @ViewChild('target') scrollTarget;
 
