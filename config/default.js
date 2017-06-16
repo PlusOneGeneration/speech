@@ -1,6 +1,7 @@
 const moment = require('moment');
 
 module.exports = {
+    host: 'http://localhost:4200',
     port: 3000,
     mongo: {
         url: 'mongodb://mongo/dev'

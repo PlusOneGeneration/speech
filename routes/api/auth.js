@@ -8,12 +8,13 @@ module.exports = (app) => {
 
     const UserService = app.container.get('UserService');
     const AuthService = app.container.get('AuthService');
+    const host = app.config.get('host');
 
     //TODO @@@dr move conf to file conf
     passport.use(new GoogleStrategy({
             clientID: '554942612534-i09vd6bgf5l83hht1rf13upec13haq5b.apps.googleusercontent.com',
             clientSecret: '67XR388ukMrZizQ994UBpRk3',
-            callbackURL: "http://localhost:4200/api/auth/google/callback"
+            callbackURL: `${host}/api/auth/google/callback`
         },
         function (token, tokenSecret, profile, done) {
             UserService.getByEmail(profile.emails[0].value)
@@ -32,7 +33,7 @@ module.exports = (app) => {
     passport.use(new FacebookStrategy({
             clientID: '823319997844715',
             clientSecret: 'a227fb42a2caa2b188f5d9f6056f7c76',
-            callbackURL: "http://localhost:4200/api/auth/facebook/callback",
+            callbackURL: `${host}/api/auth/facebook/callback`,
             profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
         },
         function (accessToken, refreshToken, profile, done) {
@@ -71,7 +72,7 @@ module.exports = (app) => {
                 .then((token) => res.redirect('/auth/token/' + token));
         });
 
-    router.get('/facebook', passport.authenticate('facebook', {scope: ['public_profile', 'email', 'user_about_me']}));
+    router.get('/facebook', passport.authenticate('facebook', {scope: ['public_profile', 'email']}));
 
     router.get('/facebook/callback',
         passport.authenticate('facebook', {failureRedirect: '/auth/sign-in'}),
@@ -83,27 +84,6 @@ module.exports = (app) => {
             AuthService.createAuthToken(req.user)
                 .then((token) => res.redirect('/auth/token/' + token));
         });
-
-
-    // router.param('paramId', (id, req, res, next) => {
-    //    
-    // });
-
-    // router.get('/', (req, res, next) => {
-    //    
-    // });
-    //
-    // router.post('/', (req, res, next) => {
-    //
-    // });
-    //
-    // router.put('/', (req, res, next) => {
-    //
-    // });
-    //
-    // router.delete('/', (req, res, next) => {
-    //
-    // });
 
     return router;
 }
