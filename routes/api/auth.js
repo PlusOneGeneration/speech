@@ -14,7 +14,7 @@ module.exports = (app) => {
     passport.use(new GoogleStrategy({
             clientID: '554942612534-i09vd6bgf5l83hht1rf13upec13haq5b.apps.googleusercontent.com',
             clientSecret: '67XR388ukMrZizQ994UBpRk3',
-            callbackURL: `${host}/api/auth/google/callback`
+            callbackURL: host + '/api/auth/google/callback'
         },
         function (token, tokenSecret, profile, done) {
             UserService.updateUserFromGoogle(profile)
@@ -27,7 +27,7 @@ module.exports = (app) => {
     passport.use(new FacebookStrategy({
             clientID: '823319997844715',
             clientSecret: 'a227fb42a2caa2b188f5d9f6056f7c76',
-            callbackURL: `${host}/api/auth/facebook/callback`,
+            callbackURL: host + '/api/auth/facebook/callback',
             profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
         },
         function (accessToken, refreshToken, profile, done) {

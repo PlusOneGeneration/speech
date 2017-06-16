@@ -38,7 +38,6 @@ export class FileUploadService {
 
       this.http.post(url, formData, options)
         .map(res => res.json())
-        .catch(error => observer.error(error))
         .subscribe(
           data => observer.next(data),
           error => observer.error(error)

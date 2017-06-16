@@ -7,7 +7,7 @@ module.exports = (mongoose) => {
         file: Object,
         storeMedia: Boolean,
         speechType: String,
-        date: {type: Date, default: Date.now()}
+        date: {type: Date, default: Date.now}
     });
 
     return mongoose.model('Record', recordSchema);

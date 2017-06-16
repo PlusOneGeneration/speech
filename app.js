@@ -9,10 +9,6 @@ const app = express();
 
 require('now-logs')('tl8CXu5HkLBNSvxNdpl21FrN');
 
-const staticDir = path.join(__dirname, './client/dist');
-app.use(express.static(staticDir));
-app.use(fallback('index.html', {root: staticDir}));
-
 app.use(passport.initialize());
 
 require('plus.application')
@@ -22,8 +18,10 @@ require('plus.application')
     })
     .wrap(app);
 
-//write mode 511 equal 777
-fs.chmod(__dirname + '/resources', 511);
+const FileService = app.container.get('FileService');
+FileService.checkAndCreateDir(__dirname + '/resources')
+    .then(() => fs.chmod(__dirname + '/resources', 511))
+    .catch((err) => console.log('[ERROR]', err.message));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -33,13 +31,17 @@ app.use(require('./routes/router')(app));
 app.use((err, req, res, next) => {
     if (err && err.name === 'UnauthorizedError') {
         res.status(401).json({error: 'Invalid token'});
-    }else {
+    } else {
         console.log('[ERROR] ', err.message);
         console.log('[ERROR] ', err.stack);
         res.status(500).send();
     }
 
 });
+
+const staticDir = path.join(__dirname, './client/dist');
+app.use(express.static(staticDir));
+app.use(fallback('index.html', {root: staticDir}));
 
 app.listen(
     app.config.get('port'),

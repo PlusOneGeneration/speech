@@ -11,4 +11,16 @@ module.exports = class FileService {
             fs.unlink(filePath, (err) => err ? reject(err) : resolve());
         })
     }
+
+    checkAndCreateDir(path) {
+        return new Promise((resolve, reject) => {
+            fs.stat(path, (err, stats) => {
+                if (stats && stats.isDirectory()) {
+                    resolve(path)
+                } else {
+                    fs.mkdir(path, 0o777, (err) => err ? reject(err) : resolve(path));
+                }
+            })
+        });
+    }
 }

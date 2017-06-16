@@ -4,7 +4,7 @@
   "description": "",
   "main": "converter.js",
   "engines": {
-    "node": "^6.0.0"
+    "node": "^7.0.0"
   },
   "scripts": {
     "start": "node app.js",
