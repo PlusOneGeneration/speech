@@ -8,26 +8,26 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 })
 export class WebSpeechComponent {
   text: string = '';
-  text$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  speechResult$: BehaviorSubject<{ text: string }> = new BehaviorSubject<{ text: string }>(null);
 
   constructor(private webSpeechApiService: WebSpeechApiService) {
   }
 
-  start():void {
+  start(): void {
     this.webSpeechApiService
       .record()
       .subscribe(
         (resultText) => {
           if (resultText) {
             this.text = resultText;
-            this.text$.next(resultText);
+            this.speechResult$.next({text: resultText});
           }
         },
         (error) => console.error(error)
       );
   }
 
-  stop():void {
+  stop(): void {
     this.webSpeechApiService.stopRecord();
   }
 }

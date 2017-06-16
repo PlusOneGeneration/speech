@@ -5,6 +5,7 @@ export class Record {
   title: string;
   transcription: string;
   file?: RecordFile;
+  storeMedia: boolean;
   tmpFile?: File;
   speechType: string;
   date: Date;

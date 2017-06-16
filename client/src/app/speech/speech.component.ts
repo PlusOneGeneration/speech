@@ -21,6 +21,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   record: Record = new Record;
   webRTCisSupported: boolean;
   storeFile: boolean = false;
+  loading: boolean = false;
 
   @ViewChild('audio') audioElement;
   @ViewChild('speech') speech: WebSpeechComponent | GoogleSpeechComponent | any;
@@ -86,22 +87,23 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   }
 
   store(storeFile: boolean = false): void {
-    this.speech.text$
-      .subscribe((text) => {
-        if (text) {
-          this.record.transcription = text;
-          this.record.title = this.record.transcription || Date.now().toString();
+    this.loading = true;
 
-          if (storeFile) {
-            this.record.tmpFile = new File([this.recordRTC.getBlob()], `${Date.now()}.wav`);
-          }
+    this.speech.speechResult$
+      .subscribe((speechResult) => {
+        if (speechResult && speechResult.text) {
+          this.record.transcription = speechResult.text;
+          this.record.title = this.record.transcription || Date.now().toString();
+          this.record.storeMedia = storeFile;
+
+          this.record.tmpFile = new File([this.recordRTC.getBlob()], `${Date.now()}.wav`);
 
           this.recordService.create(this.record)
             .subscribe((record) => {
               this.record = new Record;
+              this.loading = false;
             });
         }
-
       });
   }
 

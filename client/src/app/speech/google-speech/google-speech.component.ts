@@ -8,7 +8,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 })
 export class GoogleSpeechComponent {
   text: string = '';
-  text$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  speechResult$: BehaviorSubject<{text: string}> = new BehaviorSubject<{text: string}>(null);
   loading: boolean = false;
 
   constructor(private fileUploadService: FileUploadService) {}
@@ -24,7 +24,7 @@ export class GoogleSpeechComponent {
     this.fileUploadService.sendFile(file, 'file', '/api/files')
       .subscribe((response) => {
         this.text = response.transcription;
-        this.text$.next(response.transcription);
+        this.speechResult$.next({text: this.text});
 
         this.loading = false;
       });
