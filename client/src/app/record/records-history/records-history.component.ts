@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Record} from "../Record";
 import {RecordService} from "../record.service";
 import {UserService} from "../../user/user.service";
@@ -17,6 +17,8 @@ export class RecordsHistoryComponent implements OnInit {
   recordsPerPage: number = 10;
   pagesArray: any[];
   loading: boolean = false;
+
+  @ViewChild('target') scrollTarget;
 
   constructor(private recordService: RecordService,
               private userService: UserService,
@@ -40,8 +42,9 @@ export class RecordsHistoryComponent implements OnInit {
 
             this.userService.getUserRecords(user, this.recordsPerPage, (this.page - 1) * this.recordsPerPage)
               .subscribe((records) => {
-                this.loading = false;
+                this.scrollTarget.nativeElement.scrollIntoView();
                 this.records = records;
+                this.loading = false;
               });
           });
       });

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-offset-2 col-sm-offset-0 col-md-4 col-sm-6">
       <h3>Records History</h3>
-      <div>
+      <div #target>
         <ul *ngIf="records.length" class="list-unstyled">
           <li *ngFor="let record of records">
             <div class="panel panel-default">
