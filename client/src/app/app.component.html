@@ -13,6 +13,9 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav" *ngIf="user">
         <li >
+          <a [routerLink]="['app','speech']" routerLinkActive="active" >Speech</a>
+        </li>
+        <li >
           <a [routerLink]="['app','record', 'history']" routerLinkActive="active" >Records history</a>
         </li>
       </ul>
