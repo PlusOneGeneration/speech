@@ -20,6 +20,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   stream: any;
   record: Record = new Record;
   webRTCisSupported: boolean;
+  storeFile: boolean = false;
 
   @ViewChild('audio') audioElement;
   @ViewChild('speech') speech: WebSpeechComponent | GoogleSpeechComponent | any;
@@ -67,7 +68,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
           this.speech.stop(this.recordRTC.getBlob());
         }
 
-        this.store();
+        this.store(this.storeFile);
         this.isRecordFinish = true;
       });
   }

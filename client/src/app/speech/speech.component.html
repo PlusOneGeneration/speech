@@ -31,6 +31,10 @@
       <h3>Recording: </h3>
       <button class="btn btn-default" (click)="start()">Start</button>
       <button class="btn btn-default" (click)="stop()">Stop</button>
+      <label>
+        <input type="checkbox" [(ngModel)]="storeFile">
+        Store voice
+      </label>
     </div>
     <div class="col-md-4" *ngIf="isRecording">
       <span>Recording started...</span>

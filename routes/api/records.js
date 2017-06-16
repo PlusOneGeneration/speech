@@ -6,12 +6,11 @@ module.exports = (app) => {
     const RecordService = app.container.get('RecordService');
     const FileUploadMulterService = app.container.get('FileUploadMulterService');
 
-    router.post('/', FileUploadMulterService.uploadMiddleware(), (req, res, next) => {
+    router.post('/', FileUploadMulterService.uploadMiddleware('tmpFile'), (req, res, next) => {
         RecordService.save(req.body, req.user, req.file)
             .then((record) => res.json(record))
             .catch((err) => next(err));
     });
-
 
     return router;
 }
