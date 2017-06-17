@@ -1,3 +1,3 @@
 module.exports = {
-    host: ''
+    // host: 'https://plus-speech.now.sh'
 }
