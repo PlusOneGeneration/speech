@@ -20,8 +20,8 @@ export class WebSpeechComponent {
       .subscribe(
         (resultText) => {
           if (resultText) {
-            this.text = resultText;
-            this.speechResult$.next({text: resultText});
+            this.text += resultText;
+            this.speechResult$.next({text: this.text});
           }
         },
         (error) => {
