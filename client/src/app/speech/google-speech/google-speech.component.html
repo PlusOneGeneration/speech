@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="alert alert-danger" role="alert" *ngIf="showError">
+    Something was wrong!
+  </div>
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
       <h4 *ngIf="text">Google Speech result: </h4>
