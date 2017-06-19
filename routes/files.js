@@ -6,7 +6,7 @@ module.exports = (app) => {
     const FileUploadMulterService = app.container.get('FileUploadMulterService');
     const RecordService = app.container.get('RecordService');
 
-    router.get('/:fileId', (req, res, next) => {
+    router.get('/:fileId.wav', (req, res, next) => {
         RecordService.getRecordFileByFileId(req.params.fileId)
             .then((record) => {
                 if (!record) {
