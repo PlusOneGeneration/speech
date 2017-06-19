@@ -7,7 +7,7 @@
     "node": "^7.0.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "NODE_ENV=prod node app.js",
     "start.dev": "npm run setup && nodemon -i node_modules -i client -i resources app.js",
     "setup": "npm install",
     "build.front": "cd client/ && ng build --prod --env=prod",
