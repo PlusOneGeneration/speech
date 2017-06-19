@@ -12,12 +12,15 @@ export class WebSpeechApiService {
   record(): Observable<any> {
     return Observable.create((observer) => {
       const {webkitSpeechRecognition} : IWindow = <IWindow>window;
+      try {
+        this.speechRecognition = new webkitSpeechRecognition();
+        this.speechRecognition.lang = 'en-us';
+        this.speechRecognition.continuous = true;
 
-      this.speechRecognition = new webkitSpeechRecognition();
-      this.speechRecognition.lang = 'en-us';
-      this.speechRecognition.continuous = true;
-
-      this.speechRecognition.maxAlternatives = 1;
+        this.speechRecognition.maxAlternatives = 1;
+      } catch (err){
+        return observer.error(err);
+      }
 
       this.speechRecognition.onresult = (event) => {
         var last = event.results.length - 1;

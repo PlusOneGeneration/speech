@@ -9,6 +9,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 export class WebSpeechComponent {
   text: string = '';
   speechResult$: BehaviorSubject<{ text: string }> = new BehaviorSubject<{ text: string }>(null);
+  speechIsSupported$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(private webSpeechApiService: WebSpeechApiService) {
   }
@@ -23,7 +24,9 @@ export class WebSpeechComponent {
             this.speechResult$.next({text: resultText});
           }
         },
-        (error) => console.error(error)
+        (error) => {
+          this.speechIsSupported$.next(false);
+        }
       );
   }
 

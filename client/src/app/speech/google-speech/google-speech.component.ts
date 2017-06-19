@@ -10,6 +10,7 @@ export class GoogleSpeechComponent {
   text: string = '';
   speechResult$: BehaviorSubject<{text: string}> = new BehaviorSubject<{text: string}>(null);
   loading: boolean = false;
+  speechIsSupported$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(private fileUploadService: FileUploadService) {}
 

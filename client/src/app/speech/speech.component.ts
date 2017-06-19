@@ -23,6 +23,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   storeFile: boolean = false;
   loading: boolean = false;
   micHasAccess: boolean = true;
+  speechIsSupported: boolean = true;
 
   @ViewChild('audio') audioElement;
   @ViewChild('speech') speech: WebSpeechComponent | GoogleSpeechComponent | any;
@@ -44,6 +45,14 @@ export class SpeechComponent implements OnInit, AfterViewInit {
     this.isRecording = true;
     this.isRecordFinish = false;
 
+    this.speech.speechIsSupported$
+      .subscribe((isSupported) => {
+        if (!isSupported) {
+          this.speechIsSupported = false;
+          this.stopOnly();
+        }
+      });
+
     this.mediaRecorderService.recordStart(recordOptions)
       .subscribe(
         (data) => {
@@ -51,6 +60,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
           this.stream = data.stream;
           this.recordRTC = data.recordRTC;
           this.audio.controls = true;
+          this.micHasAccess = true;
 
           this.speech.start();
         },
@@ -85,6 +95,15 @@ export class SpeechComponent implements OnInit, AfterViewInit {
       });
   }
 
+  stopOnly(): void {
+    this.mediaRecorderService.recordStop(this.recordRTC, this.stream)
+      .subscribe(() => {
+        this.isRecordFinish = true;
+        this.isRecording = false;
+      });
+
+  }
+
   download(): void {
     this.mediaRecorderService.download(this.recordRTC, Date.now().toString(), 'wav')
       .subscribe(() => {
@@ -95,6 +114,8 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   speechChanged($event): void {
     this.isRecordFinish = false;
     this.isRecording = false;
+    this.micHasAccess = true;
+    this.speechIsSupported = true;
   }
 
   store(storeFile: boolean = false): void {

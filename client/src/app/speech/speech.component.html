@@ -26,47 +26,55 @@
         (ngModelChange)="speechChanged($event)">
     </div>
   </div>
-  <div class="row" *ngIf="selectedSpeech">
+  <div class="row">
     <div class="alert alert-warning" role="alert" *ngIf="!micHasAccess">
       You need to give permission for microphone.
       <a href="https://support.google.com/chrome/answer/2693767?hl=en">Instruction</a>
     </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!speechIsSupported">
+      Web Speech not supported you browser.
+    </div>
 
-    <div class="col-md-offset-4 col-md-4 " *ngIf="micHasAccess">
-      <h3>Recording: </h3>
-      <button class="btn btn-default" (click)="start()">Start</button>
-      <button class="btn btn-default" (click)="stop()">Stop</button>
-      <label>
-        <input type="checkbox" [(ngModel)]="storeFile">
-        Store voice
-      </label>
-    </div>
   </div>
-  <div class="row" style="margin-top: 1em">
-    <div class="col-md-offset-4 col-md-4" *ngIf="isRecording">
-      <div>Recording started...</div>
+  <div class="row" *ngIf="micHasAccess && speechIsSupported">
+    <div class="row" *ngIf="selectedSpeech">
+      <div class="col-md-offset-4 col-md-4 " >
+        <h3>Recording: </h3>
+        <button class="btn btn-default" (click)="start()">Start</button>
+        <button class="btn btn-default" (click)="stop()">Stop</button>
+        <label>
+          <input type="checkbox" [(ngModel)]="storeFile">
+          Store voice
+        </label>
+      </div>
     </div>
-  </div>
-  <hr>
-  <div class="row">
-    <div *ngIf="selectedSpeech == 'googleSpeech'">
-      <google-speech #speech></google-speech>
+    <div class="row" style="margin-top: 1em">
+      <div class="col-md-offset-4 col-md-4" *ngIf="isRecording">
+        <div>Recording started...</div>
+      </div>
     </div>
-    <div *ngIf="selectedSpeech == 'webSpeech'">
-      <web-speech #speech></web-speech>
+    <hr>
+    <div class="row">
+      <div *ngIf="selectedSpeech == 'googleSpeech'">
+        <google-speech #speech></google-speech>
+      </div>
+      <div *ngIf="selectedSpeech == 'webSpeech'">
+        <web-speech #speech></web-speech>
+      </div>
+      <div style="margin-bottom: 1em"></div>
     </div>
-    <div style="margin-bottom: 1em"></div>
-  </div>
 
-  <div class="row" style="margin-top: 1em">
-    <div class="col-md-offset-4 col-md-4">
-      <audio #audio [ngClass]="{'hide-player': !isRecordFinish}"></audio>
-      <div *ngIf="isRecordFinish">
-        <h4 class="pull-left">Your voice record</h4>
-        <button class="btn btn-default" style="margin-left: 1em" (click)="download()">Download</button>
+    <div class="row" style="margin-top: 1em">
+      <div class="col-md-offset-4 col-md-4">
+        <audio #audio [ngClass]="{'hide-player': !isRecordFinish}"></audio>
+        <div *ngIf="isRecordFinish">
+          <h4 class="pull-left">Your voice record</h4>
+          <button class="btn btn-default" style="margin-left: 1em" (click)="download()">Download</button>
+        </div>
       </div>
     </div>
   </div>
+
 <ui-loader *ngIf="loading"></ui-loader>
 </div>
 
