@@ -8,6 +8,10 @@ module.exports = (app) => {
     const _ = require('lodash');
 
     router.get('/me', (req, res, next) => {
+        if(!req.user && !req.user.userId){
+            return res.status(401).json();
+        }
+
         UserService.getById(req.user.userId)
             .then((user) => _.omit(user.toJSON(), ['facebookData']))
             .then((user) => res.json(user))
