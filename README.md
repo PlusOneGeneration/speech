@@ -12,10 +12,14 @@ You can start application by two way:
 
 You can test application only on `localhost` or `https protocol`.
 
-[Demo](https://server-whuddmoggm.now.sh/app/speech)
+[Demo](https://plus-speech.now.sh/app/speech)
 
 ## Dependencies
-- node v6.\*.\* required
+- node v6+.\*.\*
+- mongoDB
+- angular-cli
+- Docker
+- Docker-compose
 
 ## Setup
 ```
@@ -23,12 +27,28 @@ git clone https://github.com/PlusOneGeneration/speech.git
 cd speech
 npm install
 ```
+After installing dependencies you should configure application.
+Open `config/default.js` and fill your host, port, mongoDB url and OAuth credential for Google and Facebook.
+If you production configuration is different, you can fill credential in `config/prod.js`. When you start application with `NODE_ENV=prod` application take configuration from `config/prod.js`.
 
 ## Start application
-Production mode: `npm run build.front` and `npm start`
 
-Development mode: `npm run start.dev` and `cd client && npm start`.  By default client app started on `http://localhost:4200` and connect with proxy to backend default `localhost:3000`. Angular cli proxy configuration: `client/proxy.conf.json`
+#### Backend in Development mode:
+ #####Docker-compose
+ For start backend run `docker-compose up` or `make app`
+ 
+ #####Npm
+ For start backend run `npm run start.dev`. You system should be have installed mongoDB.
 
+####Client
+ For start client `cd client && npm start`. Client app connected with backend through proxy. 
+ By default client app started on `http://localhost:4200` and connect with backend by default `localhost:3000`.
+ Angular cli proxy configuration: `client/proxy.conf.json`
+
+####Production mode
+ Build client `npm run build.front` 
+ 
+ Start application `npm start`, application started with `NODE_ENV=prod` or deploy trough Docker container
 
 ## Technologies
 - express js 
