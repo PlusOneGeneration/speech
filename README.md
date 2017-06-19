@@ -34,18 +34,18 @@ If you production configuration is different, you can fill credential in `config
 ## Start application
 
 #### Backend in Development mode:
- #####Docker-compose
+ ##### Docker-compose
  For start backend run `docker-compose up` or `make app`
  
- #####Npm
+ ##### NPM
  For start backend run `npm run start.dev`. You system should be have installed mongoDB.
 
-####Client
+#### Client
  For start client `cd client && npm start`. Client app connected with backend through proxy. 
  By default client app started on `http://localhost:4200` and connect with backend by default `localhost:3000`.
  Angular cli proxy configuration: `client/proxy.conf.json`
 
-####Production mode
+#### Production mode
  Build client `npm run build.front` 
  
  Start application `npm start`, application started with `NODE_ENV=prod` or deploy trough Docker container
