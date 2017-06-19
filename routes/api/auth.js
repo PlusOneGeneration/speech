@@ -8,13 +8,13 @@ module.exports = (app) => {
 
     const UserService = app.container.get('UserService');
     const AuthService = app.container.get('AuthService');
+    const configOAuth = app.config.get('oAuth');
     const host = app.config.get('host');
 
-    //TODO @@@dr move conf to file conf
     passport.use(new GoogleStrategy({
-            clientID: '554942612534-i09vd6bgf5l83hht1rf13upec13haq5b.apps.googleusercontent.com',
-            clientSecret: '67XR388ukMrZizQ994UBpRk3',
-            callbackURL: host + '/api/auth/google/callback'
+            clientID: configOAuth.google.clientId,
+            clientSecret: configOAuth.google.secret,
+            callbackURL: host + configOAuth.google.callback
         },
         function (token, tokenSecret, profile, done) {
             UserService.updateUserFromGoogle(profile)
@@ -25,10 +25,10 @@ module.exports = (app) => {
         }));
 
     passport.use(new FacebookStrategy({
-            clientID: '823319997844715',
-            clientSecret: 'a227fb42a2caa2b188f5d9f6056f7c76',
-            callbackURL: host + '/api/auth/facebook/callback',
-            profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
+            clientID: configOAuth.facebook.clientId,
+            clientSecret: configOAuth.facebook.secret,
+            callbackURL: host + configOAuth.facebook.callback,
+            profileFields: configOAuth.facebook.profileFields,
         },
         function (accessToken, refreshToken, profile, done) {
             if (profile.emails && profile.emails.length) {
