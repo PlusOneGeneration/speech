@@ -4,7 +4,7 @@ module.exports = {
     host: 'http://localhost:4200',
     port: 3000,
     mongo: {
-        url: 'mongodb://mongo/dev'
+        url: 'mongodb://mongo/dev',
     },
     fileStore: {
         dir: './resources',
