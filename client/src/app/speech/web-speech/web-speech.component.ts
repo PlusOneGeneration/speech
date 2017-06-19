@@ -15,6 +15,7 @@ export class WebSpeechComponent {
   }
 
   start(): void {
+    this.text = '';
     this.webSpeechApiService
       .record()
       .subscribe(
@@ -25,6 +26,7 @@ export class WebSpeechComponent {
           }
         },
         (error) => {
+          this.text = '';
           this.speechIsSupported$.next(false);
         }
       );
