@@ -6,10 +6,6 @@ When you open application page, browser requested access for you microphone.
 
 You need to choose an Api and then click by 'Start' button and just say something. After then you need click by 'Stop' button and you can see below result from Api and ability play or download your voice record.
 
-You can start application by two way:
-* localhost
-* with [npm now](https://zeit.co/now) 
-
 You can test application only on `localhost` or `https protocol`.
 
 [Demo](https://plus-speech.now.sh/app/speech)
@@ -18,37 +14,52 @@ You can test application only on `localhost` or `https protocol`.
 - node v6+.\*.\*
 - mongoDB
 - angular-cli
-- Docker
-- Docker-compose
+- Docker (for development, not required)
+- Docker-compose (for development, not required)
 
 ## Setup
 ```
-git clone https://github.com/PlusOneGeneration/speech.git
 cd speech
 npm install
 ```
 After installing dependencies you should configure application.
 Open `config/default.js` and fill your host, port, mongoDB url and OAuth credential for Google and Facebook.
-If you production configuration is different, you can fill credential in `config/prod.js`. When you start application with `NODE_ENV=prod` application take configuration from `config/prod.js`.
+If you production configuration is different, you can fill credential in `config/prod.js`. 
+When you start application with `NODE_ENV=prod` application take configuration from `config/prod.js`.
 
 ## Start application
 
 #### Backend in Development mode:
  ##### Docker-compose
- For start backend run `docker-compose up` or `make app`
+ *not necessary, just for dev mode*
  
- ##### NPM
- For start backend run `npm run start.dev`. You system should be have installed mongoDB.
+ Use `Make` file for shortcuts. All commands `make help`
+ 
+ For start backend run `docker-compose up` or `make app`.
+
+ If you need stop docker-compose containers use `make stop`
+ 
+ ##### Local install
+ For start backend run `npm run start.dev`. 
+ 
+ ***(!)*** You system should have installed `mongoDB`.
 
 #### Client
- For start client `cd client && npm start`. Client app connected with backend through proxy. 
+ For start client:
+ ```bash
+ cd client 
+ npm start
+ ```  
+ Client app connected with backend through proxy. 
  By default client app started on `http://localhost:4200` and connect with backend by default `localhost:3000`.
  Angular cli proxy configuration: `client/proxy.conf.json`
 
 #### Production mode
+ Before starting you need to generate/compress/collect all js files for front-end.
+ 
  Build client `npm run build.front` 
  
- Start application `npm start`, application started with `NODE_ENV=prod` or deploy trough Docker container
+ Start application `npm start`, application started with `NODE_ENV=prod` and get credentials from `config/prod.js` file
 
 ## Technologies
 - express js 
