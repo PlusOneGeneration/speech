@@ -68,7 +68,8 @@ module.exports = class UserService {
         return {
             name: params.displayName,
             email: params.emails[0].value,
-            googleId: params.id
+            googleId: params.id,
+            googleData: params._json
         }
     }
 }

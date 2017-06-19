@@ -13,7 +13,7 @@ module.exports = (app) => {
         }
 
         UserService.getById(req.user.userId)
-            .then((user) => _.omit(user.toJSON(), ['facebookData']))
+            .then((user) => _.omit(user.toJSON(), ['facebookData', 'googleData']))
             .then((user) => res.json(user))
             .catch((err) => next(err));
     });

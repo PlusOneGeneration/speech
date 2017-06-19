@@ -8,7 +8,8 @@ module.exports = (mongoose) => {
         facebookId: String,
         profileUrl: String,
         date: {type: Date, default: Date.now()},
-        facebookData: Object
+        facebookData: Object,
+        googleData: Object
     });
 
     return mongoose.model('User', userSchema);
