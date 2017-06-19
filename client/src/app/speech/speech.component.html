@@ -27,7 +27,12 @@
     </div>
   </div>
   <div class="row" *ngIf="selectedSpeech">
-    <div class="col-md-offset-4 col-md-4 ">
+    <div class="alert alert-warning" role="alert" *ngIf="!micHasAccess">
+      You need to give permission for microphone.
+      <a href="https://support.google.com/chrome/answer/2693767?hl=en">Instruction</a>
+    </div>
+
+    <div class="col-md-offset-4 col-md-4 " *ngIf="micHasAccess">
       <h3>Recording: </h3>
       <button class="btn btn-default" (click)="start()">Start</button>
       <button class="btn btn-default" (click)="stop()">Stop</button>

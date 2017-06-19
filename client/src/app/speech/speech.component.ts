@@ -22,6 +22,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
   webRTCisSupported: boolean;
   storeFile: boolean = false;
   loading: boolean = false;
+  micHasAccess: boolean = true;
 
   @ViewChild('audio') audioElement;
   @ViewChild('speech') speech: WebSpeechComponent | GoogleSpeechComponent | any;
@@ -44,14 +45,24 @@ export class SpeechComponent implements OnInit, AfterViewInit {
     this.isRecordFinish = false;
 
     this.mediaRecorderService.recordStart(recordOptions)
-      .subscribe((data) => {
-        this.audio.src = window.URL.createObjectURL(data.stream);
-        this.stream = data.stream;
-        this.recordRTC = data.recordRTC;
-        this.audio.controls = true;
+      .subscribe(
+        (data) => {
+          this.audio.src = window.URL.createObjectURL(data.stream);
+          this.stream = data.stream;
+          this.recordRTC = data.recordRTC;
+          this.audio.controls = true;
 
-        this.speech.start();
-      });
+          this.speech.start();
+        },
+        (error) => {
+          if (error.name == 'PermissionDeniedError') {
+            this.isRecording = false;
+            this.micHasAccess = false;
+          } else {
+            console.log('err >>>', error)
+          }
+        }
+      );
   }
 
   stop() {
@@ -96,7 +107,7 @@ export class SpeechComponent implements OnInit, AfterViewInit {
           this.record.title = this.record.transcription || Date.now().toString();
           this.record.storeMedia = storeFile;
 
-          if(storeFile){
+          if (storeFile) {
             this.record.tmpFile = new File([this.recordRTC.getBlob()], `${Date.now()}.wav`);
           }
 

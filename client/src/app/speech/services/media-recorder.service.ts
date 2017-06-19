@@ -23,7 +23,7 @@ export class MediaRecorderService {
 
           this.zone.run(() => observer.next({recordRTC: recordRTC, stream: mediaStream}));
         })
-        .catch((err) => console.error(err));
+        .catch((err) => observer.error(err));
     });
   }
 
