@@ -1,13 +1,10 @@
 const moment = require('moment');
 
 module.exports = {
-    // host: 'http://localhost:3000',
-    // host: 'http://localhost:4200',
-    host: 'https://plus-speech.now.sh',
+    host: 'http://localhost:4200',
     port: 3000,
     mongo: {
-        // url: 'mongodb://mongo/dev'
-        url: 'mongodb://remdi:remdi@ds129422.mlab.com:29422/speech-db'
+        url: 'mongodb://mongo/dev',
     },
     fileStore: {
         dir: './resources',
