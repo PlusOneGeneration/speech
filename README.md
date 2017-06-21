@@ -1,12 +1,18 @@
 ## Project overview
-Speech application work with two api [Web Speech Api](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) and [Google Speech Api](https://cloud.google.com/speech/)
+Simple application allows to transform speech/voice to text. 
+Based on two speech engines (can be selected in application): 
+- [Web Speech Api](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
+- [Google Speech Api](https://cloud.google.com/speech/)
 
-How it's works:
-When you open application page, browser requested access for you microphone.
+### Usage
+1. You need to choose Speech Engine. 
+2. Click 'Start' button. It will start record your voice. Just say something. 
+3. To finish record session press 'Stop' button.
+4. You will see result of voice-to-text translation.
 
-You need to choose an Api and then click by 'Start' button and just say something. After then you need click by 'Stop' button and you can see below result from Api and ability play or download your voice record.
-
-You can test application only on `localhost` or `https protocol`.
+### Note: 
+- You need allow access to use your microphone.
+- You can test application only on `localhost` or `https protocol`.
 
 [Demo](https://plus-speech.now.sh/app/speech)
 
@@ -49,45 +55,47 @@ module.exports = {
 3. Open left menu and select Api Manager -> Credentials
 4. Click "Create credentials" and select "Service account key"
 5. Select "Service account" or select "New service account"
-6. Fill "Service account name" and select role "Project" -> "Owner".
+6. Fill "Service account name" and select role "Project" -> "Owner"
 7. Select "Key type" -> "JSON"
-8. Click "Create" then file with credentials will download on your pc.
-9. Open that file in text editor and copy all field to `config/default.js googleSpeech->credentials` 
+8. Click "Create". It will start downloading file with credentials
+9. Open this file in text editor and copy all field to `config/default.js googleSpeech->credentials` 
 
 #### Step 4. Create Google OAuth credentials
 
 1. Open [https://console.cloud.google.com/](https://console.cloud.google.com/)
 2. Open left menu and select Api Manager -> Credentials
 4. Click "Create credentials" and select "OAuth client ID"
-5. If you receive message "To create an OAuth client ID, you must first set a product name on the consent screen" click "Configure consent screen"
-6. Fill "Product name shown to users" it field is required and click "Save"
+5. If you receive message `To create an OAuth client ID, you must first set a product name on the consent screen` click "Configure consent screen"
+6. Fill "Product name shown to users". This field is required. Then click "Save"
 7. Then select web application
-8. Fill name, in "Authorized JavaScript origins" type your site host and in "Authorized redirect URIs
-" type google callback, host + callback uri, like that `https://plus-speech.now.sh/api/auth/google/callback`
+8. Fill name. Fill "Authorized JavaScript origins" type your site host. Fill "Authorized redirect URIs
+" type google callback. Callback consist of `host` + `callback uri`, like that `https://plus-speech.now.sh/api/auth/google/callback`
 9. Click "Create"
 10. You will receive credential for OAuth.
-11. Open file `config/default.js` oAuth -> google and fill `clientId` `secret` from step 10. You need to check `callback` without host,  with callback from step 8.
+11. Open file `config/default.js`. Fill `oAuth -> google` with `clientId` `secret` from step 10. 
+12. You need to check `callback` field. It must be like callback from step 8 but without host. Example `api/auth/google/callback`
 
 #### Step 5. Create Facebook OAuth credentials
 1. Open [https://developers.facebook.com/](https://developers.facebook.com/)
 2. My Apps -> Add a New App
 3. Fill application name and contact email and click Create App Id
 4. You should see "Product setup" and select "Facebook Login" and click "Get started"
-5. Click in left menu "Facebook Login"
+5. Click "Facebook Login" in left menu 
 6. Check options:
  - Client OAuth Login - yes
  - Web OAuth Login - yes
  - Embedded Browser OAuth Login - no
  - Force Web OAuth Reauthentication - no
-7. Fill "Valid OAuth redirect URIs", looks like {you host}/api/auth/facebook/callback press enter and click "Save changes". You can use several callback on one application.
-8. Click in left menu "Settings"
-9. Fill "Site Url" like `https://plus-speech.now.sh` click "Save changes". You can use several sites, every site separate by space. Example `https://plus-speech.now.sh/ http://localhost:3000`
-10. Open file `config/default.js` oAuth -> facebook and fill `clientId` equal `App ID`, `secret` equal `App Secret`, `App ID, App Secret` from "Settings" page. You need to check `callback` without host,  with callback from step 7. 
+7. Fill "Valid OAuth redirect URIs", like `host` + `/api/auth/facebook/callback` press enter and click "Save changes". Note: You can use several callback on one application.
+8. Click "Settings" in left menu
+9. Fill "Site Url" like `https://plus-speech.now.sh` click "Save changes". Note: You can use several sites. Each site separated by space. Example `https://plus-speech.now.sh/ http://localhost:3000`
+10. Open file `config/default.js`. Fill `oAuth -> facebook` with `clientId: App ID` , `secret: App Secret`, `App ID, App Secret` from "Settings" page. 
+11. You need to check `callback` field. It must be like callback from step 8 but without host. Example `api/auth/facebook/callback`
 
 #### Step 6. You application configured. Go section "Start application"
 
 You can have different configuration for production and development mode. 
-For this you need in file `config/prod.js` paste field with another configuration, you can paste only another field.
+For this you need to set field with another configuration in file `config/prod.js`. You can paste only required fields.
  
 ***(!)*** File structure `config/prod.js` should be like `config/default.js`
 When you start application with `NODE_ENV=prod` application take configuration from `config/prod.js`.
@@ -110,35 +118,41 @@ When you start application with `NODE_ENV=prod` application take configuration f
  ***(!)*** You system should have installed `mongoDB`.
 
 #### Client
- Client started always from local. For first start client:
- ```
+For init project you need:
+```
  cd client 
  npm install
  npm start
  ```  
  
-For the following starts use only:
+Important: Client always starts from local environment.
+ 
+For the following runs use next commands: 
 ```
 cd client 
 npm start
 ```  
- Client app connected with backend through proxy. 
- By default client app started on `http://localhost:4200` and connect with backend by default `localhost:3000`.
- Angular cli proxy configuration: `client/proxy.conf.json`
+Note: Client app connected with backend through proxy. 
+By default client app starts on `http://localhost:4200` and connects with backend by default `localhost:3000`.
+Angular cli proxy configuration: `client/proxy.conf.json`
 
 #### Production mode
  Before starting you need to generate/compress/collect all js files for front-end.
   
- Build client `npm run production.prepare.front`, for building angular 2 used `@angular/cli`.
+ Command to prepare client app for production: `npm run production.prepare.front`.
+ 
  Or you can use:
 ```
 	cd client 
 	ng build --prod --env=prod
 ```
+ Note: For building angular 2 used `@angular/cli`.
  
- Generated and compressed files store in folder `client/dist`.
+ Generated and compressed files are stored in folder `client/dist`.
  
- Start application `npm start`, application started with `NODE_ENV=prod` and get credentials from `config/prod.js` file
+ To start application run `npm start`.
+ Application started with `NODE_ENV=prod`. 
+ Credentials are in `config/prod.js` file
 
 ## Technologies
 - express js 
