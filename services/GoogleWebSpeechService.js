@@ -1,10 +1,9 @@
 module.exports = class GoogleWebSpeechService {
 
-  constructor() {
-    //TODO @@@dr move this to config files
+  constructor(googleSpeechConfig) {
     this.Speech = require('@google-cloud/speech')({
-        projectId: 'web-speech-170013',
-        credentials: require('../web-speech-0ffcf9c94ebf.json')
+        projectId: googleSpeechConfig.projectId,
+        credentials: googleSpeechConfig.credentials
     });
   }
 
