@@ -144,8 +144,8 @@ Angular cli proxy configuration: `client/proxy.conf.json`
  
  Or you can use:
 ```
-	cd client 
-	ng build --prod --env=prod
+cd client 
+ng build --prod --env=prod
 ```
  Note: For building angular 2 used `@angular/cli`.
  
