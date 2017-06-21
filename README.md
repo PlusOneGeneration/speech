@@ -108,12 +108,12 @@ When you start application with `NODE_ENV=prod` application take configuration f
  Before starting you need to generate/compress/collect all js files for front-end.
    
  Run from project root folder. 
- Command to prepare client app for production: `npm run production.prepare.front`.
+ Command to prepare client app for production: `npm run production.prepare.front` from root directory.
   
  Or you can use:
  ```
  cd client 
- ng build --prod --env=prod
+ npm run build.production
  ``` 
  Note: For building angular 2 used `@angular/cli`. 
  Generated and compressed files are stored in folder `client/dist`.
