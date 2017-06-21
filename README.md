@@ -91,6 +91,7 @@ module.exports = {
 9. Fill "Site Url" like `https://plus-speech.now.sh` click "Save changes". Note: You can use several sites. Each site separated by space. Example `https://plus-speech.now.sh/ http://localhost:3000`
 10. Open file `config/default.js`. Fill `oAuth -> facebook` with `clientId: App ID` , `secret: App Secret`, `App ID, App Secret` from "Settings" page. 
 11. You need to check `callback` field. It must be like callback from step 8 but without host. Example `api/auth/facebook/callback`
+12. For production. Click "App review" in left menu. Turn off `Your app is in development and unavailable to the public`
 
 #### Step 6. You application configured. Go section "Start application"
 
