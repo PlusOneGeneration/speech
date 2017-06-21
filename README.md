@@ -17,7 +17,7 @@ Based on two speech engines (can be selected in application):
 [Demo](https://plus-speech.now.sh/app/speech)
 
 ## Dependencies
-- node v6+.\*.\*
+- node v6.11.\*
 - mongoDB
 - angular-cli
 - Docker (for development, not required)
@@ -26,7 +26,6 @@ Based on two speech engines (can be selected in application):
 ## Setup
 #### Step 1. Clone and install
 ```
-git clone https://github.com/PlusOneGeneration/speech.git (why it removed)
 cd speech
 npm install
 ```
@@ -102,58 +101,75 @@ For this you need to set field with another configuration in file `config/prod.j
 When you start application with `NODE_ENV=prod` application take configuration from `config/prod.js`.
 
 ## Start application
+#### Local for production
+***Important:*** check you have nodejs v6.11.\* and mongoDB v3.4.\*.
 
-#### Backend in Development mode:
- ##### Docker-compose
- *not necessary, just for dev mode*
- 
- Use `Make` file for shortcuts. All commands `make help`
- 
- For start backend run `docker-compose up` or `make app`.
+##### Step 1. Build frontend for production
+ Before starting you need to generate/compress/collect all js files for front-end.
+   
+ Run from project root folder. 
+ Command to prepare client app for production: `npm run production.prepare.front`.
+  
+  Or you can use:
+ ```
+ cd client 
+ ng build --prod --env=prod
+ ``` 
+ Note: For building angular 2 used `@angular/cli`. 
+ Generated and compressed files are stored in folder `client/dist`.
+  
+##### Step 2. Start backend
+ For start application run `npm start`.
+ Application started with `NODE_ENV=prod`. 
+ Credentials are in `config/prod.js` file
 
- If you need stop docker-compose containers use `make stop`
- 
- ##### Local install
- For start backend run `npm run start.dev`. 
- 
- ***(!)*** You system should have installed `mongoDB`.
+#### Local for development
+***Important:*** check you have nodejs v6.11.\* and mongoDB v3.4.\*.
 
-#### Client
+##### Step 1. Start backend
+ For start backend: `npm run start.dev` 
+
+##### Step 2. Init frontend
 For init project you need:
 ```
  cd client 
  npm install
- npm start
  ```  
+##### Step 3. Start frontend 
+ For the following runs use next commands: 
+ ```
+ npm start
+ ```
  
-Important: Client always starts from local environment.
+ Note: Only for development. Client app connected with backend through proxy. 
+ By default client app starts on `http://localhost:4200` and connects with backend by default `localhost:3000`.
+ Angular cli proxy configuration: `client/proxy.conf.json`
  
+ Or you can use for Docker-compose for development.
+ 
+ #### Docker-compose
+ *not necessary, just for dev mode*
+ 
+***Important:*** check you have docker and docker-compose
+ 
+ Use `Make` file for shortcuts. All commands `make help`
+
+##### Step 1. Start backend 
+ For start backend run `docker-compose up` or `make app`.
+
+ If you need stop docker-compose containers use `make stop`
+ 
+##### Step 2. Init frontend
+For init project you need:
+```
+ cd client 
+ npm install
+ ```  
+##### Step 3. Start frontend 
 For the following runs use next commands: 
 ```
-cd client 
-npm start
-```  
-Note: Client app connected with backend through proxy. 
-By default client app starts on `http://localhost:4200` and connects with backend by default `localhost:3000`.
-Angular cli proxy configuration: `client/proxy.conf.json`
-
-#### Production mode
- Before starting you need to generate/compress/collect all js files for front-end.
-  
- Command to prepare client app for production: `npm run production.prepare.front`.
- 
- Or you can use:
+ npm start
 ```
-cd client 
-ng build --prod --env=prod
-```
- Note: For building angular 2 used `@angular/cli`.
- 
- Generated and compressed files are stored in folder `client/dist`.
- 
- To start application run `npm start`.
- Application started with `NODE_ENV=prod`. 
- Credentials are in `config/prod.js` file
 
 ## Technologies
 - express js 
