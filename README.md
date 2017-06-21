@@ -101,7 +101,7 @@ For this you need to set field with another configuration in file `config/prod.j
 When you start application with `NODE_ENV=prod` application take configuration from `config/prod.js`.
 
 ## Start application
-#### Local for production
+### Local for production
 ***Important:*** check you have nodejs v6.11.\* and mongoDB v3.4.\*.
 
 #### Step 1. Build frontend for production
@@ -123,7 +123,7 @@ When you start application with `NODE_ENV=prod` application take configuration f
  Application started with `NODE_ENV=prod`. 
  Credentials are in `config/prod.js` file
 
-#### Local for development
+### Local for development
 ***Important:*** check you have nodejs v6.11.\* and mongoDB v3.4.\*.
 
 #### Step 1. Start backend
@@ -148,7 +148,7 @@ For init project you need:
  
  Or you can use for Docker-compose for development.
  
- #### Docker-compose
+ ### Docker-compose
  *not necessary, just for dev mode*
  
 ***Important:*** check you have docker and docker-compose
