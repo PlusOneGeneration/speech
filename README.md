@@ -24,7 +24,7 @@ Based on two speech engines (can be selected in application):
 - Docker-compose (for development, not required)
 
 ## Setup
-#### Step 1. Clone and install
+#### Step 1. Install
 ```
 cd speech
 npm install
@@ -104,13 +104,13 @@ When you start application with `NODE_ENV=prod` application take configuration f
 #### Local for production
 ***Important:*** check you have nodejs v6.11.\* and mongoDB v3.4.\*.
 
-##### Step 1. Build frontend for production
+#### Step 1. Build frontend for production
  Before starting you need to generate/compress/collect all js files for front-end.
    
  Run from project root folder. 
  Command to prepare client app for production: `npm run production.prepare.front`.
   
-  Or you can use:
+ Or you can use:
  ```
  cd client 
  ng build --prod --env=prod
@@ -118,7 +118,7 @@ When you start application with `NODE_ENV=prod` application take configuration f
  Note: For building angular 2 used `@angular/cli`. 
  Generated and compressed files are stored in folder `client/dist`.
   
-##### Step 2. Start backend
+#### Step 2. Start backend
  For start application run `npm start`.
  Application started with `NODE_ENV=prod`. 
  Credentials are in `config/prod.js` file
@@ -126,20 +126,21 @@ When you start application with `NODE_ENV=prod` application take configuration f
 #### Local for development
 ***Important:*** check you have nodejs v6.11.\* and mongoDB v3.4.\*.
 
-##### Step 1. Start backend
+#### Step 1. Start backend
  For start backend: `npm run start.dev` 
 
-##### Step 2. Init frontend
+#### Step 2. Init frontend
 For init project you need:
 ```
  cd client 
  npm install
- ```  
-##### Step 3. Start frontend 
+```
+#### Step 3. Start frontend 
  For the following runs use next commands: 
- ```
- npm start
- ```
+```
+ cd client 
+ npm run start.client
+```
  
  Note: Only for development. Client app connected with backend through proxy. 
  By default client app starts on `http://localhost:4200` and connects with backend by default `localhost:3000`.
@@ -154,21 +155,22 @@ For init project you need:
  
  Use `Make` file for shortcuts. All commands `make help`
 
-##### Step 1. Start backend 
+#### Step 1. Start backend 
  For start backend run `docker-compose up` or `make app`.
 
  If you need stop docker-compose containers use `make stop`
  
-##### Step 2. Init frontend
+#### Step 2. Init frontend
 For init project you need:
 ```
  cd client 
  npm install
  ```  
-##### Step 3. Start frontend 
+#### Step 3. Start frontend 
 For the following runs use next commands: 
 ```
- npm start
+ cd client 
+ npm run start.client
 ```
 
 ## Technologies
